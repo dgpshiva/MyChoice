@@ -9,17 +9,25 @@
 </head>
 <body>
     <h2>
-        <p>My Choice!</p>
-        <div id="post-question-div">
-            <button id="post-question" data-bind="click: postQuestion">Post <br> Question</button>
+        <p id="header-text">My Choice!</p>
+        <div class="post-question-button-div" data-bind="visible: !postQuestionPage()">
+            <button class="standard-button blue-button post-question-button" data-bind="click: postQuestion">Post <br> Question</button>
         </div>
-
     </h2>
+
+    <div class="post-question-page-div" data-bind="visible: postQuestionPage">
+        <textarea name="post-question-text-area" class="post-question-text-area" cols="30" rows="10"></textarea>
+        <div class="post-question-page-buttons-div">
+            <button class="standard-button green-button" data-bind="click: postQuestionSubmit">Submit</button>
+            <button class="standard-button red-button" data-bind="click: postQuestionCancel">Cancel</button>
+        </div>
+    </div>
 
     <!-- <figure class="ball1 bubble"></figure>
     <figure class="ball2 bubble"></figure> -->
 
-
-    <script src="js/main.js"></script>
+    <script defer src="js/lib/knockout-3.2.0.js"></script>
+    <script defer src="js/lib/jquery.min.js"></script>
+    <script defer src="js/main.js"></script>
 </body>
 </html>

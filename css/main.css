@@ -17,6 +17,61 @@ img {
 }
 
 
+/* Standard buttons */
+.standard-button {
+    padding: 8px 36px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+}
+
+.blue-button {
+    background-color: rgb(0, 140, 186);
+}
+
+.blue-button:hover {
+    background-color: rgb(0, 111, 148);
+}
+
+.blue-button:active {
+    background-color: rgb(0, 111, 148);
+    transform: translateY(3px);
+}
+
+.green-button {
+    background-color: rgb(76, 175, 80);
+}
+
+.green-button:hover {
+    background-color: rgb(76, 146, 42);
+}
+
+.green-button:active {
+    background-color: rgb(76, 146, 42);
+    transform: translateY(3px);
+}
+
+.red-button {
+    background-color: rgb(244, 38, 16);
+}
+
+.red-button:hover {
+    background-color: rgb(244, 67, 54);
+}
+
+.red-button:active {
+    background-color: rgb(244, 67, 54);
+    transform: translateY(3px);
+}
+
+
+
+
 
 h2 {
     height: 100px;
@@ -32,33 +87,28 @@ h2 p {
     font-size: 35px;
 }
 
-#post-question-div {
+.post-question-button-div {
     width: 20%;
     display: flex;
     flex-flow: row wrap;
 }
 
-#post-question {
+.post-question-button {
     margin-right: 5px;
-    padding: 8px 36px;
-    font-size: 18px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #008CBA;
-    border: none;
-    border-radius: 15px;
 }
 
-#post-question:hover {
-    background-color: rgb(0, 111, 148);
+.post-question-page-div {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
 }
 
-#post-question:active {
-    background-color: rgb(0, 111, 148);
-    transform: translateY(3px);
+.post-question-text-area {
+    width: 100%;
+    height: 75px;
+    margin: 50px 25px;
+    font-size: 25px;
 }
 
 
