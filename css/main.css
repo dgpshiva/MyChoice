@@ -138,10 +138,15 @@ h2 {
 
 .list-element .posted-by {
     font-size: 15px;
+    font-style: italic;
     margin: 15px 20px 0px 20px;
     word-wrap: break-word;
     height: 30px;
     overflow: scroll;
+}
+
+.list-element .posted-by span {
+    font-style: initial;
 }
 
 
