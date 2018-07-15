@@ -8,15 +8,20 @@
     <link rel="stylesheet" media="screen" href="css/main.css" />
 </head>
 <body>
-    <h2>
-        <p id="header-text">My Choice!</p>
+    <h2> My Choice!
+        <!-- <p id="header-text">My Choice!</p> -->
         <div class="post-question-button-div" data-bind="visible: !postQuestionPage()">
             <button class="standard-button blue-button" data-bind="click: postQuestion">Post <br> Question</button>
         </div>
     </h2>
 
     <ul class="questions-list" data-bind="foreach: questionsList, visible: !postQuestionPage()">
-        <li class="list-elements" data-bind="text: question, click: $parent.questionSelected"></li>
+        <div class="list-element-div">
+            <li class="list-element" data-bind="click: $parent.questionSelected">
+                <p class="question" data-bind="text: question"></p>
+                <p class="posted-by" data-bind="text: posted_by"></p>
+            </li>
+        </div>
         <br>
     </ul>
 

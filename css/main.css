@@ -79,19 +79,15 @@ h2 {
     background: rgb(49, 49, 49);
     display: flex;
     align-items: center;
-}
-
-h2 p {
-    width: 85%;
+    justify-content: center;
+    flex-flow: row wrap;
     color: white;
-    text-align: center;
     font-size: 35px;
 }
 
 .post-question-button-div {
-    width: 15%;
-    display: flex;
-    flex-flow: row wrap;
+    position: absolute;
+    right: 25px;
 }
 
 
@@ -109,6 +105,44 @@ h2 p {
     font-size: 25px;
 }
 
+.questions-list {
+    padding: 0;
+    margin: 30px 20px;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.list-element-div {
+    background: grey;
+    border-radius: 15px;
+    height: 105px;
+    overflow: scroll;
+}
+
+.list-element-div:hover {
+    background-color: rgb(94, 94, 94);
+}
+
+.list-element-div:active {
+    background-color: rgb(94, 94, 94);
+    transform: translateY(3px);
+}
+
+.list-element .question {
+    font-size: 20px;
+    margin: 10px 20px;
+    word-wrap: break-word;
+    height: 50px;
+    overflow: scroll;
+}
+
+.list-element .posted-by {
+    font-size: 15px;
+    margin: 15px 20px 0px 20px;
+    word-wrap: break-word;
+    height: 30px;
+    overflow: scroll;
+}
 
 
 

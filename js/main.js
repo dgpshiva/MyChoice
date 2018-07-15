@@ -16,7 +16,16 @@ var ViewModel = function() {
     self.question = ko.observable();
 
     // This is data bound to the questions being displayed in the web page
-    self.questionsList = ko.observableArray([]);
+    self.questionsList = ko.observableArray([{"id": 1, "posted_by": "Me","question": "Testssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssaaaaa"},
+                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"}
+                                            ]);
+    //self.questionsList = ko.observableArray([]);
 
     self.loadQuestions = function() {
 
@@ -43,7 +52,7 @@ var ViewModel = function() {
             });
     };
 
-    self.loadQuestions();
+    //self.loadQuestions();
 
     self.questionSelected = function() {
         console.log("In here!");
