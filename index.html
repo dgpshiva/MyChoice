@@ -15,6 +15,11 @@
         </div>
     </h2>
 
+    <ul class="questions-list" data-bind="foreach: questionsList, visible: !postQuestionPage()">
+        <li class="list-elements" data-bind="text: question, click: $parent.questionSelected"></li>
+        <br>
+    </ul>
+
     <div class="post-question-page-div" data-bind="visible: postQuestionPage">
         <textarea name="post-question-text-area" class="post-question-text-area" cols="30" rows="10" data-bind="value: question"></textarea>
         <div class="post-question-page-buttons-div">

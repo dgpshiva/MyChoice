@@ -12,13 +12,16 @@ var ViewModel = function() {
     // This is bound to visible property for post question page elements
     self.postQuestionPage = ko.observable(false);
 
+    // Data bound to the post question text area value
+    self.question = ko.observable();
+
     // This is data bound to the questions being displayed in the web page
     self.questionsList = ko.observableArray([]);
 
     self.loadQuestions = function() {
 
         // Clearing out any existing questions from the list
-        self.questionsList([]);
+        self.questionsList.removeAll();
 
         var questionsEndPoint = "http://localhost:5000/v1/questions/";
 
@@ -35,14 +38,16 @@ var ViewModel = function() {
                 });
             })
             .fail(function( jqxhr, textStatus, error ) {
-                        clearTimeout(requestTimeOut);
+                clearTimeout(requestTimeOut);
                 window.alert("Failed to get response from API!");
             });
     };
 
     self.loadQuestions();
 
-    self.question = ko.observable();
+    self.questionSelected = function() {
+        console.log("In here!");
+    };
 
     self.postQuestion = function() {
         self.postQuestionPage(true);
@@ -55,7 +60,6 @@ var ViewModel = function() {
 
     self.postQuestionSubmit = function() {
         self.postQuestionPage(false);
-
     };
 }
 
