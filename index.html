@@ -9,7 +9,6 @@
 </head>
 <body>
     <h2> My Choice!
-        <!-- <p id="header-text">My Choice!</p> -->
         <div class="post-question-button-div" data-bind="visible: !postQuestionPage()">
             <button class="standard-button blue-button" data-bind="click: postQuestion">Post <br> Question</button>
         </div>
@@ -19,7 +18,7 @@
         <div class="list-element-div">
             <li class="list-element" data-bind="click: $parent.questionSelected">
                 <p class="question" data-bind="text: question"></p>
-                <p class="posted-by" data-bind="text: posted_by"></p>
+                <p class="posted-by">Posted By: <span data-bind="text: posted_by"></span></p>
             </li>
         </div>
         <br>
