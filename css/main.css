@@ -116,7 +116,7 @@ h2 {
     background: grey;
     border-radius: 15px;
     height: 105px;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .list-element-div:hover {
@@ -133,7 +133,7 @@ h2 {
     margin: 10px 20px;
     word-wrap: break-word;
     height: 50px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .list-element .posted-by {
@@ -142,7 +142,7 @@ h2 {
     margin: 15px 20px 0px 20px;
     word-wrap: break-word;
     height: 30px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .list-element .posted-by span {
