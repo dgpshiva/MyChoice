@@ -60,7 +60,6 @@ var ViewModel = function() {
 
     self.postQuestion = function() {
         self.postQuestionPage(true);
-        document.getElementById("header-text").style.width = "100%";
     };
 
     self.postQuestionCancel = function() {
