@@ -8,11 +8,12 @@
     <link rel="stylesheet" media="screen" href="css/main.css" />
 </head>
 <body>
-    <h2> My Choice!
+    <header>
+        <p>My Choice!</p>
         <div class="post-question-button-div" data-bind="visible: !postQuestionPage()">
             <button class="standard-button blue-button" data-bind="click: postQuestion">Post <br> Question</button>
         </div>
-    </h2>
+    </header>
 
     <ul class="questions-list" data-bind="foreach: questionsList, visible: !postQuestionPage()">
         <div class="list-element-div">

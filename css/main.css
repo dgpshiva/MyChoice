@@ -16,6 +16,10 @@ img {
 	height: auto;
 }
 
+body {
+    margin: 0;
+    overflow: scroll;
+}
 
 /* Standard buttons */
 .standard-button {
@@ -73,14 +77,16 @@ img {
 
 
 
-
-h2 {
+header {
     height: 100px;
     background: rgb(49, 49, 49);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-flow: row wrap;
+}
+
+header p {
     color: white;
     font-size: 35px;
 }
@@ -89,7 +95,6 @@ h2 {
     position: absolute;
     right: 25px;
 }
-
 
 .post-question-page-div {
     display: flex;
