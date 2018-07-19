@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -10,9 +11,10 @@ Base = declarative_base()
 class Questions(Base):
     __tablename__ = 'questions'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID, primary_key=True, nullable=False)
     question = Column(String)
     posted_by = Column(String)
+    posted_on = Column(DateTime)
 
     @property
     def serialize(self):
@@ -20,15 +22,16 @@ class Questions(Base):
         return {
             'id': self.id,
             'question': self.question,
-            'posted_by': self.posted_by
+            'posted_by': self.posted_by,
+            'posted_on': self.posted_on
         }
 
 
 class Choices(Base):
     __tablename__ = 'choices'
 
-    id = Column(Integer, primary_key=True)
-    question_id = Column(Integer, ForeignKey('questions.id'))
+    id = Column(UUID, primary_key=True, nullable=False)
+    question_id = Column(UUID, ForeignKey('questions.id'), nullable=False)
     questions = relationship(Questions)
     choice = Column(String)
     votes = Column(Integer)
@@ -47,8 +50,8 @@ class Choices(Base):
 class UserStatus(Base):
     __tablename__ = 'userstatus'
 
-    id = Column(Integer, primary_key=True)
-    question_id = Column(Integer, ForeignKey('questions.id'))
+    id = Column(UUID, primary_key=True, nullable=False)
+    question_id = Column(UUID, ForeignKey('questions.id'), nullable=False)
     questions = relationship(Questions)
     username = Column(String)
 

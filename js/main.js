@@ -14,18 +14,25 @@ var ViewModel = function() {
 
     // Data bound to the post question text area value
     self.question = ko.observable();
+    self.choice1 = ko.observable();
+    self.choice2 = ko.observable();
+    self.choice3 = ko.observable();
+    self.choice4 = ko.observable();
 
     // This is data bound to the questions being displayed in the web page
-    self.questionsList = ko.observableArray([{"id": 1, "posted_by": "Me","question": "Testssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssaaaaa"},
-                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
-                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
-                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
-                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
-                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
-                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"},
-                                             {"id": 2, "posted_by": "MeAgain!","question": "Test"}
-                                            ]);
-    //self.questionsList = ko.observableArray([]);
+    self.questionsList = ko.observableArray([]);
+
+    // Test data
+    // self.questionsList = ko.observableArray([{"id": 1, "posted_by": "Me","question": "Testssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssaaaaa"},
+    //                                          {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+    //                                          {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+    //                                          {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+    //                                          {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+    //                                          {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+    //                                          {"id": 2, "posted_by": "MeAgain!","question": "Test"},
+    //                                          {"id": 2, "posted_by": "MeAgain!","question": "Test"}
+    //                                         ]);
+
 
     self.loadQuestions = function() {
 
@@ -52,7 +59,7 @@ var ViewModel = function() {
             });
     };
 
-    //self.loadQuestions();
+    self.loadQuestions();
 
     self.questionSelected = function() {
         console.log("In here!");
@@ -68,6 +75,32 @@ var ViewModel = function() {
 
     self.postQuestionSubmit = function() {
         self.postQuestionPage(false);
+
+        postQuestionObject = {}
+        postQuestionObject["question"] = self.question();
+        postQuestionObject["choice1"] = self.choice1();
+        postQuestionObject["choice2"] = self.choice2();
+        postQuestionObject["choice3"] = self.choice3();
+        postQuestionObject["choice4"] = self.choice4();
+
+        var postQuestionEndPoint = "http://localhost:5000/v1/postquestion/";
+
+        var requestTimeOut = setTimeout(function(){
+            window.alert("Failed to contact the API!");
+        }, 8000);
+
+        // Making AJAX request to questions end point
+        // Assign handlers immediately after making the request,
+        // and remember the jqxhr object for this request
+        var jqxhr = $.post( postQuestionEndPoint, JSON.stringify(postQuestionObject) )
+                    .done(function(data) {
+                        clearTimeout(requestTimeOut);
+                        alert(data);
+                    })
+                    .fail(function() {
+                        clearTimeout(requestTimeOut);
+                        alert( "Failed to post question!" );
+                    });
     };
 }
 

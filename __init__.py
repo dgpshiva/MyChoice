@@ -9,7 +9,7 @@ import json
 import requests
 from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
-
+import uuid
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/v1/*": {"origins": "*"}})
@@ -28,8 +28,13 @@ session = DBSession()
 @app.route('/')
 @app.route('/v1/questions/')
 def returnQuestions():
-    questions = session.query(Questions).order_by(asc(Questions.id))
+    questions = session.query(Questions).order_by(desc(Questions.posted_on))
     return jsonify(questions=[q.serialize for q in questions])
+
+@app.route('/v1/postquestion/', methods=['POST'])
+def postQuestion():
+    print request.get_json(force=True)
+    return "testing"
 
 
 if __name__ == '__main__':
