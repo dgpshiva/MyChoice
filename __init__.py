@@ -9,6 +9,7 @@ import json
 import requests
 from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
+import datetime
 import uuid
 
 app = Flask(__name__)
@@ -33,8 +34,42 @@ def returnQuestions():
 
 @app.route('/v1/postquestion/', methods=['POST'])
 def postQuestion():
-    print request.get_json(force=True)
-    return "testing"
+    try:
+        questionChoices = request.get_json(force=True)
+        question = questionChoices["question"]
+        choice1 = questionChoices["choice1"]
+        choice2 = questionChoices["choice2"]
+        choice3 = questionChoices["choice3"]
+        choice4 = questionChoices["choice4"]
+
+        questionUuid = str(uuid.uuid4())
+        newQuestion = Questions(
+                        id=questionUuid, question=question, posted_by="Me", posted_on=datetime.datetime.now())
+        session.add(newQuestion)
+
+        choice1 = Choices(
+                    id=str(uuid.uuid4()), question_id=questionUuid, choice= choice1, votes=0)
+        session.add(choice1)
+
+        choice2 = Choices(
+                    id=str(uuid.uuid4()), question_id=questionUuid, choice= choice2, votes=0)
+        session.add(choice2)
+
+        choice3 = Choices(
+                    id=str(uuid.uuid4()), question_id=questionUuid, choice= choice3, votes=0)
+        session.add(choice3)
+
+        choice4 = Choices(
+                    id=str(uuid.uuid4()), question_id=questionUuid, choice= choice4, votes=0)
+        session.add(choice4)
+
+
+        session.commit()
+
+        return "success"
+
+    except Exception, ex:
+        return "fail"
 
 
 if __name__ == '__main__':

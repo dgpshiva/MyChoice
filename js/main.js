@@ -95,12 +95,26 @@ var ViewModel = function() {
         var jqxhr = $.post( postQuestionEndPoint, JSON.stringify(postQuestionObject) )
                     .done(function(data) {
                         clearTimeout(requestTimeOut);
-                        alert(data);
+                        if (data === "success") {
+                            alert("Question posted successfully!");
+                        }
+                        else {
+                            alert("Failed to post question!" );
+                        }
+
                     })
                     .fail(function() {
                         clearTimeout(requestTimeOut);
                         alert( "Failed to post question!" );
                     });
+
+        self.loadQuestions();
+
+        self.question(null);
+        self.choice1(null);
+        self.choice2(null);
+        self.choice3(null);
+        self.choice4(null);
     };
 }
 
