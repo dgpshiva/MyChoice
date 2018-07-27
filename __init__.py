@@ -29,6 +29,7 @@ session = DBSession()
 @app.route('/')
 @app.route('/v1/questions/')
 def returnQuestions():
+    print requests.Session().headers
     questions = session.query(Questions).order_by(desc(Questions.posted_on))
     return jsonify(questions=[q.serialize for q in questions])
 
@@ -44,23 +45,23 @@ def postQuestion():
 
         questionUuid = str(uuid.uuid4())
         newQuestion = Questions(
-                        id=questionUuid, question=question, posted_by="Me", posted_on=datetime.datetime.now())
+                        id = questionUuid, question = question, posted_by = "Me", posted_on = datetime.datetime.now())
         session.add(newQuestion)
 
         choice1 = Choices(
-                    id=str(uuid.uuid4()), question_id=questionUuid, choice= choice1, votes=0)
+                    id=str(uuid.uuid4()), question_id = questionUuid, choice = choice1, votes = 0)
         session.add(choice1)
 
         choice2 = Choices(
-                    id=str(uuid.uuid4()), question_id=questionUuid, choice= choice2, votes=0)
+                    id=str(uuid.uuid4()), question_id = questionUuid, choice = choice2, votes = 0)
         session.add(choice2)
 
         choice3 = Choices(
-                    id=str(uuid.uuid4()), question_id=questionUuid, choice= choice3, votes=0)
+                    id=str(uuid.uuid4()), question_id = questionUuid, choice = choice3, votes = 0)
         session.add(choice3)
 
         choice4 = Choices(
-                    id=str(uuid.uuid4()), question_id=questionUuid, choice= choice4, votes=0)
+                    id=str(uuid.uuid4()), question_id = questionUuid, choice= choice4, votes = 0)
         session.add(choice4)
 
 
