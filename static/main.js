@@ -74,7 +74,6 @@ var ViewModel = function() {
     };
 
     self.postQuestionSubmit = function() {
-        self.postQuestionPage(false);
 
         postQuestionObject = {}
         postQuestionObject["question"] = self.question();
@@ -109,6 +108,8 @@ var ViewModel = function() {
                     });
 
         self.loadQuestions();
+
+        self.postQuestionPage(false);
 
         self.question(null);
         self.choice1(null);

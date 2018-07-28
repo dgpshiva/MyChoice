@@ -1,16 +1,19 @@
 from database_setup import Base, Questions, Choices, UserStatus
 
+import datetime
 from flask import Flask, render_template, request
 from flask import redirect, jsonify, url_for
 from flask import abort, make_response, g
 from flask import session as login_session
 from flask_cors import CORS
 import json
+import random
 import requests
 from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
-import datetime
+import string
 import uuid
+
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/v1/*": {"origins": "*"}})
@@ -25,11 +28,19 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-# Show all categories
+# Create anti-forgery state token
 @app.route('/')
+@app.route('/v1/login')
+def showLogin():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+    login_session['state'] = state
+    return render_template('index.html', STATE=state)
+
+
+# Show all categories
 @app.route('/v1/questions/')
 def returnQuestions():
-    print requests.Session().headers
     questions = session.query(Questions).order_by(desc(Questions.posted_on))
     return jsonify(questions=[q.serialize for q in questions])
 
@@ -74,5 +85,6 @@ def postQuestion():
 
 
 if __name__ == '__main__':
+    app.secret_key = 'super_secret_key'
     app.debug = True
     app.run()

@@ -145,7 +145,7 @@ header p {
 }
 
 .post-question-page-div {
-    display: block;
+    display: blocxk;
     width: 95%;
     margin: 50px auto;
 }
@@ -182,7 +182,7 @@ header p {
 }
 
 .post-question-page-buttons-div {
-    margin: 125px 25px;
+    margin: 75px 25px;
     width: 100%;
     display: flex;
     align-items: center;
