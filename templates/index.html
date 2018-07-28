@@ -10,12 +10,18 @@
 <body>
     <header>
         <p>My Choice!</p>
-        <div class="post-question-button-div" data-bind="visible: !postQuestionPage()">
+        <div class="post-question-button-div" data-bind="visible: !postQuestionPage() && loggedIn()">
             <button class="standard-button blue-button" data-bind="click: postQuestion">Post <br> Question</button>
         </div>
     </header>
 
-    <ul class="questions-list" data-bind="foreach: questionsList, visible: !postQuestionPage()">
+    <div class="login-page-div">
+        <h2 data-bind="visible: !loggedIn">Welcome</h2>
+        <input type="text" placeholder="Enter your name here.">
+        <button class="standard-button blue-button">Go >>></button>
+    </div>
+
+    <ul class="questions-list" data-bind="foreach: questionsList, visible: !postQuestionPage">
         <div class="list-element-div">
             <li class="list-element" data-bind="click: $parent.questionSelected">
                 <p class="question" data-bind="text: question"></p>

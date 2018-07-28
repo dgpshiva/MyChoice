@@ -100,6 +100,14 @@ header p {
     right: 25px;
 }
 
+.login-page-div {
+    margin: 100px auto;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .questions-list {
     padding: 0;
     margin: 30px 20px;

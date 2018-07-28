@@ -11,6 +11,7 @@ var ViewModel = function() {
 
     // This is bound to visible property for post question page elements
     self.postQuestionPage = ko.observable(false);
+    self.loggedIn = ko.observable(false);
 
     // Data bound to the post question text area value
     self.question = ko.observable();
