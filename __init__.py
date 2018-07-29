@@ -30,12 +30,39 @@ session = DBSession()
 
 # Create anti-forgery state token
 @app.route('/')
-@app.route('/v1/login')
+@app.route('/v1/showLogin')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
-    return render_template('index.html', STATE=state)
+    return render_template('login.html', STATE=state)
+
+
+@app.route('/v1/login', methods=['POST'])
+def login():
+    try:
+        loginInfo = request.get_json(force=True)
+
+        # Validate state token
+        if loginInfo["state"] != login_session['state']:
+            response = make_response(json.dumps('Invalid state parameter.'), 401)
+            response.headers['Content-Type'] = 'application/json'
+            return response
+
+        # To do: Check username with LDAP AD
+
+        # Set the username for this session
+        login_session['username'] = loginInfo['username']
+
+        return "success"
+
+    except Exception, ex:
+        return "fail"
+
+
+@app.route('/v1/serverIndexPage')
+def serverIndexPage():
+    return render_template('index.html', username=login_session['username'])
 
 
 # Return all questions
@@ -86,7 +113,12 @@ def postQuestion():
         return "fail"
 
 
+# For debugging in VsCode
+# For deployed version comment this out and
+# set the secret key inside __name__ == '__main__'
+app.secret_key = 'super_secret_key'
+
 if __name__ == '__main__':
-    app.secret_key = 'super_secret_key'
+    # app.secret_key = 'super_secret_key'
     app.debug = True
     app.run()

@@ -1,0 +1,53 @@
+{% extends "main.html" %}
+{% block content %}
+
+<header>
+    <p>My Choice!</p>
+</header>
+
+<div class="login-page-div">
+    <h2>Welcome</h2>
+    <input id="username" type="text" placeholder="Enter your name here" onfocus="this.placeholder = ''">
+    <button class="standard-button blue-button" onclick="login()">Go &nbsp >>></button>
+</div>
+
+<script>
+    function login() {
+
+        var username =  document.getElementById("username").value;
+
+        var loginEndPoint = "http://localhost:5000/v1/login";
+
+        loginObject = {};
+        loginObject["username"] = username;
+        loginObject["state"] = "{{STATE}}";
+
+        var requestTimeOut = setTimeout(function(){
+            window.alert("Failed to contact the API!");
+        }, 8000);
+
+        // Making AJAX request to login endpoint
+        // Assign handlers immediately after making the request,
+        // and remember the jqxhr object for this request
+        var jqxhr = $.post( loginEndPoint, JSON.stringify(loginObject) )
+                    .done(function(data) {
+                        clearTimeout(requestTimeOut);
+                        if (data === "success") {
+                            window.location.href =  "/v1/serverIndexPage";
+                        }
+                        else {
+                            alert("Login failed!" );
+                        }
+                    })
+                    .fail(function() {
+                        clearTimeout(requestTimeOut);
+                        alert( "Failed to contact the API!");
+                    });
+    }
+</script>
+
+<script src="{{ url_for('static', filename='knockout-3.2.0.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+
+{% endblock %}
+
