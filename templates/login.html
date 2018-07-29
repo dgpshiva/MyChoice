@@ -15,6 +15,10 @@
     function login() {
 
         var username =  document.getElementById("username").value;
+        if (!username || username === "") {
+            window.alert("Please enter your name.");
+            return;
+        }
 
         var loginEndPoint = "http://localhost:5000/v1/login";
 
