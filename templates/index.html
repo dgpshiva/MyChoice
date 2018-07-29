@@ -15,13 +15,13 @@
         </div>
     </header>
 
-    <div class="login-page-div">
-        <h2 data-bind="visible: !loggedIn">Welcome</h2>
-        <input type="text" placeholder="Enter your name here.">
-        <button class="standard-button blue-button">Go >>></button>
+    <div class="login-page-div" data-bind="visible: !loggedIn()">
+        <h2>Welcome</h2>
+        <input type="text" placeholder="Enter your name here" onfocus="this.placeholder = ''">
+        <button class="standard-button blue-button" data-bind="click: login">Go &nbsp >>></button>
     </div>
 
-    <ul class="questions-list" data-bind="foreach: questionsList, visible: !postQuestionPage">
+    <ul class="questions-list" data-bind="foreach: questionsList, visible: !postQuestionPage() && loggedIn()">
         <div class="list-element-div">
             <li class="list-element" data-bind="click: $parent.questionSelected">
                 <p class="question" data-bind="text: question"></p>
@@ -31,7 +31,7 @@
         <br>
     </ul>
 
-    <div class="post-question-page-div" data-bind="visible: postQuestionPage">
+    <div class="post-question-page-div" data-bind="visible: postQuestionPage() && loggedIn()">
         <textarea name="post-question-text-area" class="post-question-text-area" cols="30" rows="10" data-bind="value: question" placeholder="Enter your question here."></textarea>
         <div class="choices-div">
             <input type="text" name="choice1" id="choice1" placeholder="Choice 1" data-bind="value: choice1">

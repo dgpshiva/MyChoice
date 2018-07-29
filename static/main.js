@@ -62,8 +62,8 @@ var ViewModel = function() {
 
     self.loadQuestions();
 
-    self.questionSelected = function() {
-        console.log("In here!");
+    self.login = function() {
+        self.loggedIn(true);
     };
 
     self.postQuestion = function() {
@@ -117,6 +117,10 @@ var ViewModel = function() {
         self.choice2(null);
         self.choice3(null);
         self.choice4(null);
+    };
+
+    self.questionSelected = function() {
+        console.log("In here!");
     };
 }
 

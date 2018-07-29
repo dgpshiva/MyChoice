@@ -25,6 +25,10 @@ body {
     outline: none;
 }
 
+::placeholder {
+    opacity: 0.7;
+}
+
 
 /* Standard buttons */
 .standard-button {
@@ -101,12 +105,33 @@ header p {
 }
 
 .login-page-div {
-    margin: 100px auto;
+    margin-top: 200px;
     display: flex;
     flex-flow: column wrap;
     align-items: center;
     justify-content: center;
 }
+
+.login-page-div h2 {
+    font-family: Georgia;
+    font-style: italic;
+    font-size: 35px;
+    margin: 40px 0;
+}
+
+.login-page-div input {
+    height: 30px;
+    width: 350px;
+    font-size: 18px;
+    margin-bottom: 40px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.login-page-div input::placeholder {
+    text-align: center;
+    font-style: italic;
+ }
 
 .questions-list {
     padding: 0;
@@ -156,10 +181,6 @@ header p {
     display: blocxk;
     width: 95%;
     margin: 50px auto;
-}
-
-::placeholder {
-    opacity: 0.7;
 }
 
 .post-question-text-area {

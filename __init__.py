@@ -38,12 +38,14 @@ def showLogin():
     return render_template('index.html', STATE=state)
 
 
-# Show all categories
+# Return all questions
 @app.route('/v1/questions/')
 def returnQuestions():
     questions = session.query(Questions).order_by(desc(Questions.posted_on))
     return jsonify(questions=[q.serialize for q in questions])
 
+
+# Post question and choices to db
 @app.route('/v1/postquestion/', methods=['POST'])
 def postQuestion():
     try:
