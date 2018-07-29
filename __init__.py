@@ -60,57 +60,86 @@ def login():
         return "fail"
 
 
+@app.route('/v1/logout', methods=['POST'])
+def logout():
+    try:
+        del login_session['username']
+        return "success"
+    except Exception, ex:
+        return "fail"
+
+
 @app.route('/v1/serverIndexPage')
 def serverIndexPage():
-    return render_template('index.html', username=login_session['username'])
+    if "username" in login_session:
+        return render_template('index.html', username=login_session['username'])
+    else:
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+        login_session['state'] = state
+        return render_template('login.html', STATE=state)
 
 
 # Return all questions
 @app.route('/v1/questions/')
 def returnQuestions():
-    questions = session.query(Questions).order_by(desc(Questions.posted_on))
-    return jsonify(questions=[q.serialize for q in questions])
+    if "username" in login_session:
+        questions = session.query(Questions).order_by(desc(Questions.posted_on))
+        return jsonify(questions=[q.serialize for q in questions])
+    else:
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+        login_session['state'] = state
+        return render_template('login.html', STATE=state)
 
 
 # Post question and choices to db
 @app.route('/v1/postquestion/', methods=['POST'])
 def postQuestion():
-    try:
-        questionChoices = request.get_json(force=True)
-        question = questionChoices["question"]
-        choice1 = questionChoices["choice1"]
-        choice2 = questionChoices["choice2"]
-        choice3 = questionChoices["choice3"]
-        choice4 = questionChoices["choice4"]
+    if "username" in login_session:
+        try:
+            questionChoices = request.get_json(force=True)
+            question = questionChoices["question"]
+            choice1 = questionChoices["choice1"]
+            choice2 = questionChoices["choice2"]
+            choice3 = questionChoices["choice3"]
+            choice4 = questionChoices["choice4"]
 
-        questionUuid = str(uuid.uuid4())
-        newQuestion = Questions(
-                        id = questionUuid, question = question, posted_by = "Me", posted_on = datetime.datetime.now())
-        session.add(newQuestion)
+            questionUuid = str(uuid.uuid4())
+            newQuestion = Questions(
+                            id = questionUuid, question = question, posted_by = "Me", posted_on = datetime.datetime.now())
+            session.add(newQuestion)
 
-        choice1 = Choices(
-                    id=str(uuid.uuid4()), question_id = questionUuid, choice = choice1, votes = 0)
-        session.add(choice1)
+            choice1 = Choices(
+                        id=str(uuid.uuid4()), question_id = questionUuid, choice = choice1, votes = 0)
+            session.add(choice1)
 
-        choice2 = Choices(
-                    id=str(uuid.uuid4()), question_id = questionUuid, choice = choice2, votes = 0)
-        session.add(choice2)
+            choice2 = Choices(
+                        id=str(uuid.uuid4()), question_id = questionUuid, choice = choice2, votes = 0)
+            session.add(choice2)
 
-        choice3 = Choices(
-                    id=str(uuid.uuid4()), question_id = questionUuid, choice = choice3, votes = 0)
-        session.add(choice3)
+            choice3 = Choices(
+                        id=str(uuid.uuid4()), question_id = questionUuid, choice = choice3, votes = 0)
+            session.add(choice3)
 
-        choice4 = Choices(
-                    id=str(uuid.uuid4()), question_id = questionUuid, choice= choice4, votes = 0)
-        session.add(choice4)
+            choice4 = Choices(
+                        id=str(uuid.uuid4()), question_id = questionUuid, choice= choice4, votes = 0)
+            session.add(choice4)
 
 
-        session.commit()
+            session.commit()
 
-        return "success"
+            return "success"
 
-    except Exception, ex:
-        return "fail"
+        except Exception, ex:
+            return "fail"
+
+    else:
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+        login_session['state'] = state
+        return render_template('login.html', STATE=state)
+
 
 
 # For debugging in VsCode

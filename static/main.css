@@ -99,13 +99,25 @@ header p {
     font-size: 35px;
 }
 
-.post-question-button-div {
+.header-buttons {
     position: absolute;
     right: 25px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.header-button {
+    height: 60px;
+    width: 150px;
+    text-align: center;
+}
+
+.post-question-button-div {
+    margin: 0 10px;
 }
 
 .login-page-div {
-    margin-top: 200px;
+    margin-top: 150px;
     display: flex;
     flex-flow: column wrap;
     align-items: center;

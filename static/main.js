@@ -117,6 +117,32 @@ var ViewModel = function() {
     self.questionSelected = function() {
         console.log("Question selected!");
     };
+
+    self.logout = function() {
+        var logoutEndPoint = "http://localhost:5000/v1/logout";
+
+        var requestTimeOut = setTimeout(function(){
+            window.alert("Failed to contact the API!");
+        }, 8000);
+
+        // Making AJAX request to logout endpoint
+        // Assign handlers immediately after making the request,
+        // and remember the jqxhr object for this request
+        var jqxhr = $.post( logoutEndPoint )
+                    .done(function(data) {
+                        clearTimeout(requestTimeOut);
+                        if (data === "success") {
+                            window.location.href =  "/v1/showLogin";
+                        }
+                        else {
+                            alert("Logout failed!" );
+                        }
+                    })
+                    .fail(function() {
+                        clearTimeout(requestTimeOut);
+                        alert( "Failed to contact the API!");
+                    });
+    }
 }
 
 
