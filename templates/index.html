@@ -2,14 +2,19 @@
 {% block content %}
 
 <header>
-    <p>My Choice!</p>
-    <div class="header-buttons">
-        <div class="post-question-button-div" data-bind="visible: !postQuestionPage()">
-            <button class="standard-button blue-button header-button" data-bind="click: postQuestion">Post <br> Question</button>
+    <div class="main-header">
+        <p>My Choice!</p>
+        <div class="header-buttons">
+            <div class="post-question-button-div" data-bind="visible: !postQuestionPage()">
+                <button class="standard-button blue-button header-button" data-bind="click: postQuestion">Post <br> Question</button>
+            </div>
+            <div class="logout-button-div">
+                <button class="standard-button red-button header-button" data-bind="click: logout">Logout</button>
+            </div>
         </div>
-        <div class="logout-button-div">
-            <button class="standard-button red-button header-button" data-bind="click: logout">Logout</button>
-        </div>
+    </div>
+    <div class="sub-header">
+        <span>Welcome: &nbsp</span> <p>{{username}}</p>
     </div>
 </header>
 

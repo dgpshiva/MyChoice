@@ -107,7 +107,7 @@ def postQuestion():
 
             questionUuid = str(uuid.uuid4())
             newQuestion = Questions(
-                            id = questionUuid, question = question, posted_by = "Me", posted_on = datetime.datetime.now())
+                            id = questionUuid, question = question, posted_by = login_session['username'], posted_on = datetime.datetime.now())
             session.add(newQuestion)
 
             choice1 = Choices(

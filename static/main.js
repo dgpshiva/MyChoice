@@ -114,8 +114,8 @@ var ViewModel = function() {
         self.choice4(null);
     };
 
-    self.questionSelected = function() {
-        console.log("Question selected!");
+    self.questionSelected = function(data) {
+        console.log(data);
     };
 
     self.logout = function() {

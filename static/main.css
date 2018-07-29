@@ -85,7 +85,7 @@ body {
 
 
 
-header {
+.main-header {
     height: 100px;
     background: rgb(49, 49, 49);
     display: flex;
@@ -94,9 +94,29 @@ header {
     flex-flow: row wrap;
 }
 
-header p {
+.main-header p {
     color: white;
     font-size: 35px;
+}
+
+.sub-header {
+    height: 40px;
+    background: rgb(92, 92, 92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.sub-header p {
+    color: white;
+    font-size: 25px;
+}
+
+.sub-header span {
+    color: white;
+    font-size: 25px;
+    font-style: italic;
 }
 
 .header-buttons {
