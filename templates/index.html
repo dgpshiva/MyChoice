@@ -18,7 +18,7 @@
     </div>
 </header>
 
-<ul class="questions-list" data-bind="foreach: questionsList, visible: !postQuestionPage()">
+<ul class="questions-list" data-bind="foreach: questionsList, visible: questionsListPage()">
     <div class="list-element-div">
         <li class="list-element" data-bind="click: $parent.questionSelected">
             <p class="question" data-bind="text: question"></p>
@@ -27,6 +27,8 @@
     </div>
     <br>
 </ul>
+
+<h2 data-bind="visible: questionDetailsPage()"></h2>
 
 <div class="post-question-page-div" data-bind="visible: postQuestionPage()">
     <textarea name="post-question-text-area" class="post-question-text-area" cols="30" rows="10" data-bind="value: question" placeholder="Enter your question here."></textarea>
@@ -48,5 +50,7 @@
 <script src="{{ url_for('static', filename='knockout-3.2.0.js') }}"></script>
 <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='main.js') }}"></script>
+
+
 
 {% endblock %}

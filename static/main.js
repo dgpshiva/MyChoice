@@ -1,3 +1,10 @@
+/* Disabling browser back button as this is an SPA */
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+};
+
+
 /* Model */
 var Question = function(data) {
     this.id = data.id;
@@ -10,7 +17,9 @@ var ViewModel = function() {
     var self = this;
 
     // This is bound to visible property for post question page elements
+    self.questionsListPage = ko.observable(true);
     self.postQuestionPage = ko.observable(false);
+    self.questionDetailsPage = ko.observable(false);
 
     // Data bound to the post question text area value
     self.question = ko.observable();
@@ -62,11 +71,15 @@ var ViewModel = function() {
     self.loadQuestions();
 
     self.postQuestion = function() {
+        self.questionsListPage(false);
+        self.questionDetailsPage(false);
         self.postQuestionPage(true);
     };
 
     self.postQuestionCancel = function() {
+        self.questionDetailsPage(false);
         self.postQuestionPage(false);
+        self.questionsListPage(true);
     };
 
     self.postQuestionSubmit = function() {
@@ -105,7 +118,9 @@ var ViewModel = function() {
 
         self.loadQuestions();
 
+        self.questionDetailsPage(false);
         self.postQuestionPage(false);
+        self.questionsListPage(true);
 
         self.question(null);
         self.choice1(null);
@@ -115,7 +130,10 @@ var ViewModel = function() {
     };
 
     self.questionSelected = function(data) {
-        console.log(data);
+        self.questionsListPage(false);
+        self.postQuestionPage(false);
+        self.questionDetailsPage(true);
+
     };
 
     self.logout = function() {

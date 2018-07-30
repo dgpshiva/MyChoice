@@ -69,8 +69,8 @@ def logout():
         return "fail"
 
 
-@app.route('/v1/serverIndexPage')
-def serverIndexPage():
+@app.route('/v1/indexPage')
+def serveIndexPage():
     if "username" in login_session:
         return render_template('index.html', username=login_session['username'])
     else:
