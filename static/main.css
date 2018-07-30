@@ -84,7 +84,7 @@ body {
 
 
 
-
+/* Header */
 .main-header {
     height: 100px;
     background: rgb(49, 49, 49);
@@ -136,6 +136,9 @@ body {
     margin: 0 10px;
 }
 
+
+
+/* Login In Page */
 .login-page-div {
     margin-top: 150px;
     display: flex;
@@ -165,6 +168,9 @@ body {
     font-style: italic;
  }
 
+
+
+ /* Questions List Page */
 .questions-list {
     padding: 0;
     margin: 30px 20px;
@@ -188,7 +194,7 @@ body {
     transform: translateY(3px);
 }
 
-.list-element .question {
+.question {
     font-size: 20px;
     margin: 10px 20px;
     word-wrap: break-word;
@@ -196,7 +202,7 @@ body {
     overflow: auto;
 }
 
-.list-element .posted-by {
+.posted-by {
     font-size: 15px;
     font-style: italic;
     margin: 15px 20px 0px 20px;
@@ -205,12 +211,52 @@ body {
     overflow: auto;
 }
 
-.list-element .posted-by span {
+.posted-by span {
     font-style: initial;
 }
 
+
+
+/* Question Details Page */
+.question-details-div {
+    display: block;
+    width: 95%;
+    margin: 50px auto;
+}
+
+.question-div {
+    border: solid rgba(99, 99, 99, 0.5);
+    border-radius: 15px;
+    height: 105px;
+    overflow: hidden;
+}
+
+.display-choices {
+    margin-top: 50px;
+    padding: 0 25px;
+    list-style-type: none;
+}
+
+.display-choices li {
+    margin: 70px 0;
+    width: 30%;
+    height: 25px;
+    padding: 5px 0 0 10px;
+    border: solid rgba(99, 99, 99, 0.5);
+    border-radius: 15px;
+}
+
+.question-details-page-buttons-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* Post Question Page */
 .post-question-page-div {
-    display: blocxk;
+    display: block;
     width: 95%;
     margin: 50px auto;
 }
@@ -257,8 +303,6 @@ body {
 .cancel-button {
     margin-left: 50px;
 }
-
-
 
 
 

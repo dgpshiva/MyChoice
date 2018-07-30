@@ -89,6 +89,8 @@ var ViewModel = function() {
 
     self.loadQuestions();
 
+
+
     self.postQuestion = function() {
         self.questionsListPage(false);
         self.questionDetailsPage(false);
@@ -100,6 +102,7 @@ var ViewModel = function() {
         self.postQuestionPage(false);
         self.questionsListPage(true);
     };
+
 
     self.postQuestionSubmit = function() {
 
@@ -148,11 +151,8 @@ var ViewModel = function() {
         self.choice4(null);
     };
 
-    self.questionSelected = function(questionJSON) {
-        self.questionsListPage(false);
-        self.postQuestionPage(false);
-        self.questionDetailsPage(true);
 
+    self.questionSelected = function(questionJSON) {
         self.displayQuestion(questionJSON["question"]);
         self.displayPostedBy(questionJSON["posted_by"]);
 
@@ -181,7 +181,24 @@ var ViewModel = function() {
                 clearTimeout(requestTimeOut);
                 window.alert("Failed to get response from API!");
             });
+
+        self.questionsListPage(false);
+        self.postQuestionPage(false);
+        self.questionDetailsPage(true);
     };
+
+
+    self.questionDetailsBack = function() {
+        self.displayQuestion(null);
+        self.displayPostedBy(null);
+        self.choicesList.removeAll();
+
+        self.questionDetailsPage(false);
+        self.postQuestionPage(false);
+        self.questionsListPage(true);
+    };
+
+
 
     self.logout = function() {
         var logoutEndPoint = "http://localhost:5000/v1/logout";

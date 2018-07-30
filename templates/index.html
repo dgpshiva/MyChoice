@@ -28,9 +28,19 @@
     <br>
 </ul>
 
-<div data-bind="visible: questionDetailsPage()">
-    <h2></h2>
+<div class="question-details-div" data-bind="visible: questionDetailsPage()">
+    <div class="question-div">
+        <p class="question" data-bind="text: displayQuestion"></p>
+        <p class="posted-by">Posted By: <span data-bind="text: displayPostedBy"></span></p>
+    </div>
+    <ul class="display-choices" data-bind="foreach: choicesList">
+        <li data-bind="text: choice"></li>
+    </ul>
+    <div class="question-details-page-buttons-div">
+        <button class="standard-button red-button back-button" data-bind="click: questionDetailsBack">Back</button>
+    </div>
 </div>
+
 
 <div class="post-question-page-div" data-bind="visible: postQuestionPage()">
     <textarea name="post-question-text-area" class="post-question-text-area" cols="30" rows="10" data-bind="value: question" placeholder="Enter your question here."></textarea>
