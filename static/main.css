@@ -246,7 +246,36 @@ body {
     border-radius: 15px;
 }
 
+.choices-and-balls {
+    position: relative;
+}
+
+.ball1-display {
+    position: absolute;
+    top: 0px;
+    right: 600px;
+}
+
+.ball2-display {
+    position: absolute;
+    top: 0px;
+    right: 200px;
+}
+
+.ball3-display {
+    position: absolute;
+    top: 300px;
+    right: 600px;
+}
+
+.ball4-display {
+    position: absolute;
+    top: 300px;
+    right: 200px;
+}
+
 .question-details-page-buttons-div {
+    margin-top: 90px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -313,8 +342,8 @@ body {
     display: block;
     background: black;
     border-radius: 50%;
-    height: 300px;
-    width: 300px;
+    height: 100px;
+    width: 100px;
     margin: 0;
     /* background: radial-gradient(circle at 100px 100px, #007bff, rgba(0, 0, 0, 0.555)); */
     background: radial-gradient(circle at 100px 100px, rgba(0, 123, 255, 0.35), rgba(0, 123, 255, 0.95));
@@ -324,11 +353,33 @@ body {
     display: block;
     background: black;
     border-radius: 50%;
-    height: 300px;
-    width: 300px;
+    height: 100px;
+    width: 100px;
     margin: 0;
     /* background: radial-gradient(circle at 100px 100px, #007bff, rgba(0, 0, 0, 0.555)); */
     background: radial-gradient(circle at 100px 100px, rgba(255, 0, 0, 0.35), rgba(255, 0, 0, 0.95));
+}
+
+.ball3 {
+    display: block;
+    background: black;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin: 0;
+    /* background: radial-gradient(circle at 100px 100px, #007bff, rgba(0, 0, 0, 0.555)); */
+    background: radial-gradient(circle at 100px 100px, rgba(0, 112, 15, 0.35), rgba(0, 112, 15, 0.95));
+}
+
+.ball4 {
+    display: block;
+    background: black;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin: 0;
+    /* background: radial-gradient(circle at 100px 100px, #007bff, rgba(0, 0, 0, 0.555)); */
+    background: radial-gradient(circle at 100px 100px, rgba(248, 248, 6, 0.35), rgba(248, 248, 6, 0.95));
 }
 
 .bubble {
