@@ -28,13 +28,16 @@
     <br>
 </ul>
 
+
 <div class="question-details-div" data-bind="visible: questionDetailsPage()">
+
     <div class="question-div">
         <p class="question" data-bind="text: displayQuestion"></p>
         <p class="posted-by">Posted By: <span data-bind="text: displayPostedBy"></span></p>
     </div>
 
     <div class="choices-and-balls">
+
         <ul class="display-choices">
             <li data-bind="visible: displayChoice1, text: displayChoice1"></li>
             <li data-bind="visible: displayChoice2, text: displayChoice2"></li>
@@ -49,11 +52,10 @@
 
     </div>
 
-    <div class="question-details-page-buttons-master-div">
-        <div class="question-details-page-buttons-div">
-            <button class="standard-button red-button back-button" data-bind="click: questionDetailsBack">Back</button>
-        </div>
+    <div class="question-details-page-buttons-div">
+        <button class="standard-button red-button back-button" data-bind="click: questionDetailsBack">Back</button>
     </div>
+
 </div>
 
 
