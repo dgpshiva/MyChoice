@@ -39,16 +39,24 @@
     <div class="choices-and-balls">
 
         <ul class="display-choices">
-            <li data-bind="visible: displayChoice1, text: displayChoice1"></li>
-            <li data-bind="visible: displayChoice2, text: displayChoice2"></li>
-            <li data-bind="visible: displayChoice3, text: displayChoice3"></li>
-            <li data-bind="visible: displayChoice4, text: displayChoice4"></li>
+            <li class="choice1-style" data-bind="visible: displayChoice1, text: displayChoice1"></li>
+            <li class="choice2-style" data-bind="visible: displayChoice2, text: displayChoice2"></li>
+            <li class="choice3-style" data-bind="visible: displayChoice3, text: displayChoice3"></li>
+            <li class="choice4-style" data-bind="visible: displayChoice4, text: displayChoice4"></li>
         </ul>
 
-        <figure data-bind="visible: displayChoice1" class="ball1 bubble ball1-display"></figure>
-        <figure data-bind="visible: displayChoice2" class="ball2 bubble ball2-display"></figure>
-        <figure data-bind="visible: displayChoice3" class="ball3 bubble ball3-display"></figure>
-        <figure data-bind="visible: displayChoice4" class="ball4 bubble ball4-display"></figure>
+        <figure data-bind="visible: displayChoice1" class="ball1 bubble ball1-display">
+            <p data-bind="text: displayVotes1"></p>
+        </figure>
+        <figure data-bind="visible: displayChoice2" class="ball2 bubble ball2-display">
+                <p data-bind="text: displayVotes2"></p>
+        </figure>
+        <figure data-bind="visible: displayChoice3" class="ball3 bubble ball3-display">
+                <p data-bind="text: displayVotes3"></p>
+        </figure>
+        <figure data-bind="visible: displayChoice4" class="ball4 bubble ball4-display">
+                <p data-bind="text: displayVotes4"></p>
+        </figure>
 
     </div>
 
