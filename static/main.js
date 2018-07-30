@@ -30,25 +30,26 @@ var ViewModel = function() {
     self.questionDetailsPage = ko.observable(false);
 
     // Data bound to the post question text area value
-    self.question = ko.observable();
-    self.choice1 = ko.observable();
-    self.choice2 = ko.observable();
-    self.choice3 = ko.observable();
-    self.choice4 = ko.observable();
+    self.question = ko.observable("");
+    self.choice1 = ko.observable("");
+    self.choice2 = ko.observable("");
+    self.choice3 = ko.observable("");
+    self.choice4 = ko.observable("");
 
     // Data bound to the question details page
     self.displayQuestion = ko.observable();
     self.displayPostedBy = ko.observable();
     self.displayChoice1 = ko.observable();
+    self.displayVotes1 = ko.observable();
     self.displayChoice2 = ko.observable();
+    self.displayVotes2 = ko.observable();
     self.displayChoice3 = ko.observable();
+    self.displayVotes3 = ko.observable();
     self.displayChoice4 = ko.observable();
+    self.displayVotes4 = ko.observable();
 
     // This is data bound to the questions being displayed on the questions list page
     self.questionsList = ko.observableArray([]);
-
-    // This is data bound to the choces and votes being displayed on the question details page
-    self.choicesList = ko.observableArray([]);
 
     // Test data
     // self.questionsList = ko.observableArray([{"id": 1, "posted_by": "Me","question": "Testssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssaaaaa"},
@@ -106,6 +107,16 @@ var ViewModel = function() {
 
     self.postQuestionSubmit = function() {
 
+        if (self.question() === "") {
+            window.alert("Please enter a question to post.");
+            return;
+        }
+
+        if (self.choice1 === "" && self.choice2 === "" && self.choice3 === "" && self.choice4 === "") {
+            window.alert("Please enter at least one choice for the question.");
+            return;
+        }
+
         postQuestionObject = {}
         postQuestionObject["question"] = self.question();
         postQuestionObject["choice1"] = self.choice1();
@@ -144,11 +155,11 @@ var ViewModel = function() {
         self.postQuestionPage(false);
         self.questionsListPage(true);
 
-        self.question(null);
-        self.choice1(null);
-        self.choice2(null);
-        self.choice3(null);
-        self.choice4(null);
+        self.question("");
+        self.choice1("");
+        self.choice2("");
+        self.choice3("");
+        self.choice4("");
     };
 
 
@@ -172,9 +183,15 @@ var ViewModel = function() {
                     window.alert("Failed to get response from API!");
                 }
                 else {
-                    choicesResponseJSON.choices.forEach( function(choice) {
-                        self.choicesList.push(new Choice(choice));
-                    });
+                    self.displayChoice1(choicesResponseJSON.choices[0].choice);
+                    self.displayVotes1(choicesResponseJSON.choices[0].votes);
+                    self.displayChoice2(choicesResponseJSON.choices[1].choice);
+                    self.displayVotes2(choicesResponseJSON.choices[1].votes);
+                    self.displayChoice3(choicesResponseJSON.choices[2].choice);
+                    self.displayVotes3(choicesResponseJSON.choices[2].votes);
+                    self.displayChoice4(choicesResponseJSON.choices[3].choice);
+                    self.displayVotes4(choicesResponseJSON.choices[3].votes);
+
                 }
             })
             .fail(function( jqxhr, textStatus, error ) {
@@ -191,7 +208,14 @@ var ViewModel = function() {
     self.questionDetailsBack = function() {
         self.displayQuestion(null);
         self.displayPostedBy(null);
-        self.choicesList.removeAll();
+        self.displayChoice1(null);
+        self.displayVotes1(null);
+        self.displayChoice2(null);
+        self.displayVotes2(null);
+        self.displayChoice3(null);
+        self.displayVotes3(null);
+        self.displayChoice4(null);
+        self.displayVotes4(null);
 
         self.questionDetailsPage(false);
         self.postQuestionPage(false);

@@ -35,19 +35,24 @@
     </div>
 
     <div class="choices-and-balls">
-        <ul class="display-choices" data-bind="foreach: choicesList">
-            <li data-bind="text: choice"></li>
+        <ul class="display-choices">
+            <li data-bind="visible: displayChoice1, text: displayChoice1"></li>
+            <li data-bind="visible: displayChoice2, text: displayChoice2"></li>
+            <li data-bind="visible: displayChoice3, text: displayChoice3"></li>
+            <li data-bind="visible: displayChoice4, text: displayChoice4"></li>
         </ul>
 
-        <figure class="ball1 bubble ball1-display"></figure>
-        <figure class="ball2 bubble ball2-display"></figure>
-        <figure class="ball3 bubble ball3-display"></figure>
-        <figure class="ball4 bubble ball4-display"></figure>
+        <figure data-bind="visible: displayChoice1" class="ball1 bubble ball1-display"></figure>
+        <figure data-bind="visible: displayChoice2" class="ball2 bubble ball2-display"></figure>
+        <figure data-bind="visible: displayChoice3" class="ball3 bubble ball3-display"></figure>
+        <figure data-bind="visible: displayChoice4" class="ball4 bubble ball4-display"></figure>
 
     </div>
 
-    <div class="question-details-page-buttons-div">
-        <button class="standard-button red-button back-button" data-bind="click: questionDetailsBack">Back</button>
+    <div class="question-details-page-buttons-master-div">
+        <div class="question-details-page-buttons-div">
+            <button class="standard-button red-button back-button" data-bind="click: questionDetailsBack">Back</button>
+        </div>
     </div>
 </div>
 
