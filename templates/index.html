@@ -28,7 +28,9 @@
     <br>
 </ul>
 
-<h2 data-bind="visible: questionDetailsPage()"></h2>
+<div data-bind="visible: questionDetailsPage()">
+    <h2></h2>
+</div>
 
 <div class="post-question-page-div" data-bind="visible: postQuestionPage()">
     <textarea name="post-question-text-area" class="post-question-text-area" cols="30" rows="10" data-bind="value: question" placeholder="Enter your question here."></textarea>

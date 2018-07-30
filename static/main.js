@@ -12,6 +12,14 @@ var Question = function(data) {
     this.posted_by = data.posted_by;
 }
 
+var Choice = function(data) {
+    this.id = data.id;
+    this.question_id = data.question_id;
+    this.choice = data.choice;
+    this.votes = data.votes;
+}
+
+
 /* View Model */
 var ViewModel = function() {
     var self = this;
@@ -28,8 +36,19 @@ var ViewModel = function() {
     self.choice3 = ko.observable();
     self.choice4 = ko.observable();
 
-    // This is data bound to the questions being displayed in the web page
+    // Data bound to the question details page
+    self.displayQuestion = ko.observable();
+    self.displayPostedBy = ko.observable();
+    self.displayChoice1 = ko.observable();
+    self.displayChoice2 = ko.observable();
+    self.displayChoice3 = ko.observable();
+    self.displayChoice4 = ko.observable();
+
+    // This is data bound to the questions being displayed on the questions list page
     self.questionsList = ko.observableArray([]);
+
+    // This is data bound to the choces and votes being displayed on the question details page
+    self.choicesList = ko.observableArray([]);
 
     // Test data
     // self.questionsList = ko.observableArray([{"id": 1, "posted_by": "Me","question": "Testssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssaaaaa"},
@@ -129,11 +148,39 @@ var ViewModel = function() {
         self.choice4(null);
     };
 
-    self.questionSelected = function(data) {
+    self.questionSelected = function(questionJSON) {
         self.questionsListPage(false);
         self.postQuestionPage(false);
         self.questionDetailsPage(true);
 
+        self.displayQuestion(questionJSON["question"]);
+        self.displayPostedBy(questionJSON["posted_by"]);
+
+        var questionId = questionJSON["id"];
+
+        var getChoicesVotesEndPoint = "http://localhost:5000/v1/questions/" + questionId;
+
+        var requestTimeOut = setTimeout(function(){
+            window.alert("Failed to get response from API!");
+        }, 8000);
+
+        // Making AJAX request to get choices and votes end point
+        $.getJSON( getChoicesVotesEndPoint )
+            .done(function( choicesResponseJSON ) {
+                clearTimeout(requestTimeOut);
+                if (choicesResponseJSON === "fail") {
+                    window.alert("Failed to get response from API!");
+                }
+                else {
+                    choicesResponseJSON.choices.forEach( function(choice) {
+                        self.choicesList.push(new Choice(choice));
+                    });
+                }
+            })
+            .fail(function( jqxhr, textStatus, error ) {
+                clearTimeout(requestTimeOut);
+                window.alert("Failed to get response from API!");
+            });
     };
 
     self.logout = function() {

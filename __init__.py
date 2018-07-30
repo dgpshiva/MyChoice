@@ -49,7 +49,10 @@ def login():
             response.headers['Content-Type'] = 'application/json'
             return response
 
-        # To do: Check username with LDAP AD
+
+        # To do: Implement authentication of the user
+
+
 
         # Set the username for this session
         login_session['username'] = loginInfo['username']
@@ -130,6 +133,24 @@ def postQuestion():
             session.commit()
 
             return "success"
+
+        except Exception, ex:
+            return "fail"
+
+    else:
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+        login_session['state'] = state
+        return render_template('login.html', STATE=state)
+
+
+# Return choices and votes for the question
+@app.route('/v1/questions/<string:question_id>')
+def returnChoicesVotes(question_id):
+    if "username" in login_session:
+        try:
+            choices = session.query(Choices).filter_by(question_id=question_id)
+            return jsonify(choices=[c.serialize for c in choices])
 
         except Exception, ex:
             return "fail"
