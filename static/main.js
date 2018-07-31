@@ -193,7 +193,6 @@ var ViewModel = function() {
         self.questionDetailsPage(true);
     };
 
-
     self.questionDetailsBack = function() {
         self.displayQuestion(null);
         self.displayPostedBy(null);
@@ -216,6 +215,37 @@ var ViewModel = function() {
         return 'ball'+(index+1)+'Display';
     };
 
+
+    self.castVote = function(choiceJSON) {
+
+        var voteObject = {}
+        voteObject["choice_id"] = choiceJSON["id"];
+        voteObject["question_id"] = choiceJSON["question_id"];
+
+        var castVoteEndPoint = "http://localhost:5000/v1/castvote/";
+
+        var requestTimeOut = setTimeout(function(){
+            window.alert("Failed to contact the API!");
+        }, 8000);
+
+        // Making AJAX request to cast vote end point
+        // Assign handlers immediately after making the request,
+        // and remember the jqxhr object for this request
+        var jqxhr = $.post( castVoteEndPoint, JSON.stringify(voteObject) )
+                    .done(function(data) {
+                        clearTimeout(requestTimeOut);
+                        if (data === "success") {
+                            alert("Vote has been casted successfully!");
+                        }
+                        else {
+                            alert("Failed to cast vote!" );
+                        }
+                    })
+                    .fail(function() {
+                        clearTimeout(requestTimeOut);
+                        alert( "Failed to cast vote!" );
+                    });
+    };
 
 
     self.logout = function() {
@@ -242,7 +272,7 @@ var ViewModel = function() {
                         clearTimeout(requestTimeOut);
                         alert( "Failed to contact the API!");
                     });
-    }
+    };
 }
 
 

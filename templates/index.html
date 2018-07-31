@@ -38,7 +38,7 @@
 
     <div class="choices-and-balls">
         <ul class="display-choices" data-bind="foreach: choicesList">
-            <li data-bind="visible: choice, text: choice, css:$parent.choiceClassName($index())"></li>
+            <li data-bind="visible: choice, text: choice, css:$parent.choiceClassName($index()), click: $parent.castVote"></li>
         </ul>
         <!-- ko foreach: choicesList -->
             <figure data-bind="visible: choice, css:$parent.ballClassName($index())" class="bubble">

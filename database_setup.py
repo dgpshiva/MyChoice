@@ -33,6 +33,7 @@ class Choices(Base):
     id = Column(UUID, primary_key=True, nullable=False)
     question_id = Column(UUID, ForeignKey('questions.id'), nullable=False)
     questions = relationship(Questions)
+    choice_order = Column(Integer, nullable=False)
     choice = Column(String)
     votes = Column(Integer)
 
@@ -42,6 +43,7 @@ class Choices(Base):
         return {
             'id': self.id,
             'question_id': self.question_id,
+            'choice_order': self.choice_order,
             'choice': self.choice,
             'votes': self.votes
         }
