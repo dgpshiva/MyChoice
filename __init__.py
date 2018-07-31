@@ -38,6 +38,7 @@ def showLogin():
     return render_template('login.html', STATE=state)
 
 
+
 @app.route('/v1/login', methods=['POST'])
 def login():
     try:
@@ -57,19 +58,20 @@ def login():
         # Set the username for this session
         login_session['username'] = loginInfo['username']
 
-        return "success"
+        return jsonify(status="success")
 
     except Exception, ex:
-        return "fail"
+        return jsonify(status="fail")
+
 
 
 @app.route('/v1/logout', methods=['POST'])
 def logout():
     try:
         del login_session['username']
-        return "success"
+        return jsonify(status="success")
     except Exception, ex:
-        return "fail"
+        return jsonify(status="fail")
 
 
 @app.route('/v1/indexPage')
@@ -94,6 +96,7 @@ def returnQuestions():
                     for x in xrange(32))
         login_session['state'] = state
         return render_template('login.html', STATE=state)
+
 
 
 # Post question and choices to db
@@ -132,16 +135,17 @@ def postQuestion():
 
             session.commit()
 
-            return "success"
+            return jsonify(status="success")
 
         except Exception, ex:
-            return "fail"
+            return jsonify(status="fail")
 
     else:
         state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
         login_session['state'] = state
         return render_template('login.html', STATE=state)
+
 
 
 # Return choices and votes for the question
@@ -153,13 +157,36 @@ def returnChoicesVotes(question_id):
             return jsonify(choices=[c.serialize for c in choices])
 
         except Exception, ex:
-            return "fail"
+            return jsonify(status="fail")
 
     else:
         state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
         login_session['state'] = state
         return render_template('login.html', STATE=state)
+
+
+
+# Return user status for the question
+@app.route('/v1/userstatus/<string:question_id>')
+def returnUserStatus(question_id):
+    if "username" in login_session:
+        try:
+            userstatusArray = session.query(UserStatus).filter_by(question_id=question_id)
+            for userstatus in userstatusArray:
+                if userstatus.username == login_session['username']:
+                    return jsonify(status="alreadyVoted")
+            return jsonify(status="goodToVote")
+
+        except Exception, ex:
+            return jsonify(status="fail")
+
+    else:
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+        login_session['state'] = state
+        return render_template('login.html', STATE=state)
+
 
 
 # Cast vote
@@ -184,16 +211,18 @@ def castVote():
 
             session.commit()
 
-            return "success"
+            return jsonify(status="success")
 
         except Exception, ex:
-            return "fail"
+            return jsonify(status="fail")
 
     else:
         state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
         login_session['state'] = state
         return render_template('login.html', STATE=state)
+
+
 
 
 

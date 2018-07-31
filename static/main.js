@@ -67,7 +67,7 @@ var ViewModel = function() {
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to get response from API!");
-        }, 8000);
+        }, 20000);
 
         // Making AJAX request to questions end point
         $.getJSON( questionsEndPoint )
@@ -123,25 +123,25 @@ var ViewModel = function() {
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to contact the API!");
-        }, 8000);
+        }, 20000);
 
-        // Making AJAX request to questions end point
+        // Making AJAX request to POST question end point
         // Assign handlers immediately after making the request,
         // and remember the jqxhr object for this request
         var jqxhr = $.post( postQuestionEndPoint, JSON.stringify(postQuestionObject) )
-                    .done(function(data) {
+                    .done(function(postQuestionResponseJSON) {
                         clearTimeout(requestTimeOut);
-                        if (data === "success") {
-                            alert("Question posted successfully!");
+                        if (postQuestionResponseJSON.status === "success") {
+                            window.alert("Question posted successfully!");
                         }
                         else {
-                            alert("Failed to post question!" );
+                            window.alert("Failed to post question!" );
                         }
 
                     })
                     .fail(function() {
                         clearTimeout(requestTimeOut);
-                        alert( "Failed to post question!" );
+                        window.alert( "Failed to post question!" );
                     });
 
         self.loadQuestions();
@@ -168,13 +168,13 @@ var ViewModel = function() {
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to get response from API!");
-        }, 8000);
+        }, 20000);
 
-        // Making AJAX request to get choices and votes end point
+        // Making AJAX request to GET choices and votes end point
         $.getJSON( getChoicesVotesEndPoint )
             .done(function( choicesResponseJSON ) {
                 clearTimeout(requestTimeOut);
-                if (choicesResponseJSON === "fail") {
+                if (choicesResponseJSON.status === "fail") {
                     window.alert("Failed to get response from API!");
                 }
                 else {
@@ -230,61 +230,68 @@ var ViewModel = function() {
         choiceID = choiceJSON["id"];
         questionId = choiceJSON["question_id"];
 
-        // Check if this user has not already cast a vote
+        // Check if this user has not already cast a vote and then register his/her vote
         var getUserStatusEndPoint = "http://localhost:5000/v1/userstatus/" + questionId;
 
-        var requestTimeOut = setTimeout(function(){
+        var requestTimeOutGetUserStatus = setTimeout(function(){
             window.alert("Failed to get response from API!");
-        }, 8000);
+        }, 20000);
 
-        // Making AJAX request to get choices and votes end point
-        $.getJSON( getUserStatusEndPoint )
-            .done(function( userStatusJSON ) {
-                clearTimeout(requestTimeOut);
-                if (userStatusJSON === "fail") {
-                    window.alert("Failed to get response from API!");
-                }
-                else {
-                    choicesResponseJSON.choices.forEach( function(choice) {
-                        self.choicesList.push(new Choice(choice));
-                    });
-                }
-            })
-            .fail(function( jqxhr, textStatus, error ) {
-                clearTimeout(requestTimeOut);
-                window.alert("Failed to get response from API!");
-            });
-
-
+        // For casting vote
         var voteObject = {}
         voteObject["choice_id"] = choiceID;
         voteObject["question_id"] = questionId;
 
         var castVoteEndPoint = "http://localhost:5000/v1/castvote/";
 
-        var requestTimeOut = setTimeout(function(){
+        var requestTimeOutCastVote = setTimeout(function(){
             window.alert("Failed to contact the API!");
-        }, 8000);
+        }, 40000);
 
-        // Making AJAX request to cast vote end point
-        // Assign handlers immediately after making the request,
-        // and remember the jqxhr object for this request
-        var jqxhr = $.post( castVoteEndPoint, JSON.stringify(voteObject) )
-                    .done(function(data) {
-                        clearTimeout(requestTimeOut);
-                        if (data === "success") {
-                            alert("Your vote has been casted successfully!");
-                        }
-                        else {
-                            alert("Failed to cast vote!" );
-                        }
-                    })
-                    .fail(function() {
-                        clearTimeout(requestTimeOut);
-                        alert( "Failed to cast vote!" );
-                    });
 
-        self.loadChoicesAndVotes(questionId);
+        // Making AJAX request to GET user status end point
+        $.getJSON( getUserStatusEndPoint )
+            .done(function( userStatusResponseJSON ) {
+                clearTimeout(requestTimeOutGetUserStatus);
+                if (userStatusResponseJSON.status === "fail") {
+                    clearTimeout(requestTimeOutCastVote);
+                    window.alert("Failed to get response from API!");
+                }
+                else if (userStatusResponseJSON.status === "alreadyVoted") {
+                    clearTimeout(requestTimeOutCastVote);
+                    window.alert("You have aready cast you vote for this question.\nAs this is an anonymous poll, you are not allowed to change you vote.");
+                    return;
+                }
+                else if (userStatusResponseJSON.status === "goodToVote") {
+
+                    // Cast users vote
+
+                    // Making AJAX request to cast vote end point
+                    // Assign handlers immediately after making the request,
+                    // and remember the jqxhr object for this request
+                    var jqxhr = $.post( castVoteEndPoint, JSON.stringify(voteObject) )
+                                .done(function(castVoteResponseJSON) {
+                                    clearTimeout(requestTimeOutCastVote);
+                                    if (castVoteResponseJSON.status === "success") {
+                                        window.alert("Your vote has been casted successfully!");
+                                    }
+                                    else {
+                                        window.alert("Failed to cast vote!" );
+                                    }
+                                })
+                                .fail(function() {
+                                    clearTimeout(requestTimeOutCastVote);
+                                    window.alert( "Failed to cast vote!" );
+                                });
+
+                    self.loadChoicesAndVotes(questionId);
+                }
+            })
+            .fail(function( jqxhr, textStatus, error ) {
+                clearTimeout(requestTimeOutGetUserStatus);
+                clearTimeout(requestTimeOutCastVote);
+                window.alert("Failed to get response from API!");
+            });
     };
 
 
@@ -294,27 +301,28 @@ var ViewModel = function() {
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to contact the API!");
-        }, 8000);
+        }, 20000);
 
         // Making AJAX request to logout endpoint
         // Assign handlers immediately after making the request,
         // and remember the jqxhr object for this request
         var jqxhr = $.post( logoutEndPoint )
-                    .done(function(data) {
+                    .done(function(logoutResponseJSON) {
                         clearTimeout(requestTimeOut);
-                        if (data === "success") {
+                        if (logoutResponseJSON.status === "success") {
                             window.location.href =  "/v1/showLogin";
                         }
                         else {
-                            alert("Logout failed!" );
+                            window.alert("Logout failed!" );
                         }
                     })
                     .fail(function() {
                         clearTimeout(requestTimeOut);
-                        alert( "Failed to contact the API!");
+                        window.alert( "Failed to contact the API!");
                     });
     };
 }
+
 
 
 var vm = new ViewModel();

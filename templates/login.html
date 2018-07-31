@@ -28,24 +28,24 @@
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to contact the API!");
-        }, 8000);
+        }, 20000);
 
         // Making AJAX request to login endpoint
         // Assign handlers immediately after making the request,
         // and remember the jqxhr object for this request
         var jqxhr = $.post( loginEndPoint, JSON.stringify(loginObject) )
-                    .done(function(data) {
+                    .done(function(loginResponseJSON) {
                         clearTimeout(requestTimeOut);
-                        if (data === "success") {
+                        if (loginResponseJSON.status === "success") {
                             window.location.href =  "/v1/indexPage";
                         }
                         else {
-                            alert("Login failed!" );
+                            window.alert("Login failed!" );
                         }
                     })
                     .fail(function() {
                         clearTimeout(requestTimeOut);
-                        alert( "Failed to contact the API!");
+                        window.alert( "Failed to contact the API!");
                     });
     }
 </script>
