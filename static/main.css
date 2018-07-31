@@ -320,30 +320,6 @@ figure p {
     font-size: 30px;
 }
 
-.ball1-display {
-    position: absolute;
-    top: 0px;
-    right: 450px;
-}
-
-.ball2-display {
-    position: absolute;
-    top: 0px;
-    right: 200px;
-}
-
-.ball3-display {
-    position: absolute;
-    top: 210px;
-    right: 450px;
-}
-
-.ball4-display {
-    position: absolute;
-    top: 210px;
-    right: 200px;
-}
-
 .choice1-style {
     background-color: rgba(0, 123, 255, 0.35);
 }
@@ -397,6 +373,10 @@ figure p {
 }
 
 .ball1 {
+    position: absolute;
+    top: 0px;
+    right: 450px;
+
     /* display: block; */
     background: black;
     border-radius: 50%;
@@ -408,6 +388,10 @@ figure p {
 }
 
 .ball2 {
+    position: absolute;
+    top: 0px;
+    right: 200px;
+
     /* display: block; */
     background: black;
     border-radius: 50%;
@@ -419,6 +403,10 @@ figure p {
 }
 
 .ball3 {
+    position: absolute;
+    top: 210px;
+    right: 450px;
+
     /* display: block; */
     background: black;
     border-radius: 50%;
@@ -430,6 +418,10 @@ figure p {
 }
 
 .ball4 {
+    position: absolute;
+    top: 210px;
+    right: 200px;
+
     /* display: block; */
     background: black;
     border-radius: 50%;
