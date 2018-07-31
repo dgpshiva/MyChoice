@@ -158,11 +158,11 @@ var ViewModel = function() {
     };
 
 
-    self.questionSelected = function(questionJSON) {
-        self.displayQuestion(questionJSON["question"]);
-        self.displayPostedBy(questionJSON["posted_by"]);
 
-        var questionId = questionJSON["id"];
+    self.loadChoicesAndVotes = function(questionId) {
+
+        // Empty any choices votes previously loaded
+        self.choicesList.removeAll();
 
         var getChoicesVotesEndPoint = "http://localhost:5000/v1/questions/" + questionId;
 
@@ -187,6 +187,15 @@ var ViewModel = function() {
                 clearTimeout(requestTimeOut);
                 window.alert("Failed to get response from API!");
             });
+    };
+
+    self.questionSelected = function(questionJSON) {
+        self.displayQuestion(questionJSON["question"]);
+        self.displayPostedBy(questionJSON["posted_by"]);
+
+        var questionId = questionJSON["id"];
+
+        self.loadChoicesAndVotes(questionId);
 
         self.questionsListPage(false);
         self.postQuestionPage(false);
@@ -218,9 +227,38 @@ var ViewModel = function() {
 
     self.castVote = function(choiceJSON) {
 
+        choiceID = choiceJSON["id"];
+        questionId = choiceJSON["question_id"];
+
+        // Check if this user has not already cast a vote
+        var getUserStatusEndPoint = "http://localhost:5000/v1/userstatus/" + questionId;
+
+        var requestTimeOut = setTimeout(function(){
+            window.alert("Failed to get response from API!");
+        }, 8000);
+
+        // Making AJAX request to get choices and votes end point
+        $.getJSON( getUserStatusEndPoint )
+            .done(function( userStatusJSON ) {
+                clearTimeout(requestTimeOut);
+                if (userStatusJSON === "fail") {
+                    window.alert("Failed to get response from API!");
+                }
+                else {
+                    choicesResponseJSON.choices.forEach( function(choice) {
+                        self.choicesList.push(new Choice(choice));
+                    });
+                }
+            })
+            .fail(function( jqxhr, textStatus, error ) {
+                clearTimeout(requestTimeOut);
+                window.alert("Failed to get response from API!");
+            });
+
+
         var voteObject = {}
-        voteObject["choice_id"] = choiceJSON["id"];
-        voteObject["question_id"] = choiceJSON["question_id"];
+        voteObject["choice_id"] = choiceID;
+        voteObject["question_id"] = questionId;
 
         var castVoteEndPoint = "http://localhost:5000/v1/castvote/";
 
@@ -235,7 +273,7 @@ var ViewModel = function() {
                     .done(function(data) {
                         clearTimeout(requestTimeOut);
                         if (data === "success") {
-                            alert("Vote has been casted successfully!");
+                            alert("Your vote has been casted successfully!");
                         }
                         else {
                             alert("Failed to cast vote!" );
@@ -245,7 +283,10 @@ var ViewModel = function() {
                         clearTimeout(requestTimeOut);
                         alert( "Failed to cast vote!" );
                     });
+
+        self.loadChoicesAndVotes(questionId);
     };
+
 
 
     self.logout = function() {
