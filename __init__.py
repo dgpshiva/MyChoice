@@ -177,16 +177,12 @@ def castVote():
             newVoteCount = selectedChoice.votes + 1
             session.query(Choices).filter_by(id=choiceId).update({"votes": newVoteCount})
 
+            userstatusUuid = str(uuid.uuid4())
+            newUserStatus = UserStatus(
+                                id = userstatusUuid, question_id = questionId, username = login_session['username'] )
+            session.add(newUserStatus)
+
             session.commit()
-
-
-
-            # questionUuid = str(uuid.uuid4())
-            # newQuestion = Questions(
-            #                 id = questionUuid, question = question, posted_by = login_session['username'], posted_on = datetime.datetime.now())
-            # session.add(newQuestion)
-
-            # session.commit()
 
             return "success"
 
