@@ -15,6 +15,7 @@ var Question = function(data) {
 var Choice = function(data) {
     this.id = data.id;
     this.question_id = data.question_id;
+    this.choice_order = data.choice_order;
     this.choice = data.choice;
     this.votes = data.votes;
 }
@@ -181,6 +182,15 @@ var ViewModel = function() {
                     choicesResponseJSON.choices.forEach( function(choice) {
                         self.choicesList.push(new Choice(choice));
                     });
+
+                    /* Get the figure elements by their ids and
+                       alter their sizes based on votes count */
+                    self.choicesList().forEach( function(choice, index) {
+                        var size = 125 + (10 * choice.votes) > 250 ? 250 : 125 + (10 * choice.votes);
+                        document.getElementById("ball"+(index+1)+"Id").style.height = size + "px";
+                        document.getElementById("ball"+(index+1)+"Id").style.width = size + "px";
+                    });
+
                 }
             })
             .fail(function( jqxhr, textStatus, error ) {
@@ -220,9 +230,10 @@ var ViewModel = function() {
         return 'ball'+(index+1);
     };
 
-    self.ballDisplayClassName = function(index) {
-        return 'ball'+(index+1)+'Display';
+    self.ballIdName = function(index) {
+        return 'ball'+(index+1)+'Id';
     };
+
 
 
     self.castVote = function(choiceJSON) {
