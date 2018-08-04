@@ -28,6 +28,16 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
+# Expire the user session if user has been inactive
+# for more than 20 mins
+@app.before_request
+def before_request():
+    login_session.permanent = True
+    app.permanent_session_lifetime = datetime.timedelta(minutes=20)
+    login_session.modified = True
+
+
+
 # Create anti-forgery state token
 @app.route('/')
 @app.route('/v1/showLogin')
