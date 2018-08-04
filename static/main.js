@@ -136,7 +136,7 @@ var ViewModel = function() {
             return;
         }
 
-        postQuestionObject = {}
+        var postQuestionObject = {}
         postQuestionObject["question"] = self.question();
         postQuestionObject["choice1"] = self.choice1();
         postQuestionObject["choice2"] = self.choice2();
@@ -157,6 +157,7 @@ var ViewModel = function() {
                         clearTimeout(requestTimeOut);
                         if (postQuestionResponseJSON.status === "success") {
                             window.alert("Question posted successfully!");
+                            self.loadQuestions();
                         }
                         else {
                             window.alert("Failed to post question!" );
@@ -167,8 +168,6 @@ var ViewModel = function() {
                         clearTimeout(requestTimeOut);
                         window.alert( "Failed to post question!" );
                     });
-
-        self.loadQuestions();
 
         self.questionDetailsPage(false);
         self.postQuestionPage(false);
@@ -261,8 +260,8 @@ var ViewModel = function() {
 
     self.castVote = function(choiceJSON) {
 
-        choiceID = choiceJSON["id"];
-        questionId = choiceJSON["question_id"];
+        var choiceID = choiceJSON["id"];
+        var questionId = choiceJSON["question_id"];
 
         // Check if this user has not already cast a vote and then register his/her vote
         var getUserStatusEndPoint = "http://localhost:5000/v1/userstatus/" + questionId;
@@ -308,6 +307,7 @@ var ViewModel = function() {
                                     clearTimeout(requestTimeOutCastVote);
                                     if (castVoteResponseJSON.status === "success") {
                                         window.alert("Your vote has been casted successfully!");
+                                        self.loadChoicesAndVotes(questionId);
                                     }
                                     else {
                                         window.alert("Failed to cast vote!" );
@@ -317,8 +317,6 @@ var ViewModel = function() {
                                     clearTimeout(requestTimeOutCastVote);
                                     window.alert( "Failed to cast vote!" );
                                 });
-
-                    self.loadChoicesAndVotes(questionId);
                 }
             })
             .fail(function( jqxhr, textStatus, error ) {
@@ -326,6 +324,43 @@ var ViewModel = function() {
                 clearTimeout(requestTimeOutCastVote);
                 window.alert("Failed to get response from API!");
             });
+    };
+
+
+
+    self.deleteQuestion = function(questionJSON) {
+        var questionId = questionJSON["id"];
+
+        var deleteQuestionObject = {}
+        deleteQuestionObject["question_id"] = questionId;
+
+        var deleteQuestionEndPoint = "http://localhost:5000/v1/deletequestion/";
+
+        var requestTimeOut = setTimeout(function(){
+            window.alert("Failed to contact the API!");
+        }, 20000);
+
+        // Making AJAX request to POST question end point
+        // Assign handlers immediately after making the request,
+        // and remember the jqxhr object for this request
+        var jqxhr = $.post( deleteQuestionEndPoint, JSON.stringify(deleteQuestionObject) )
+                    .done(function(deletetQuestionResponseJSON) {
+                        clearTimeout(requestTimeOut);
+                        if (deletetQuestionResponseJSON.status === "success") {
+                            window.alert("Question deleted successfully!");
+                            self.loadQuestions();
+                        }
+                        else if (deletetQuestionResponseJSON.status == "notAuthorized") {
+                            window.alert("You are not authorized to delete this question!");
+                        }
+                        else {
+                            window.alert("Failed to delete question!" );
+                        }
+                    })
+                    .fail(function() {
+                        clearTimeout(requestTimeOut);
+                        window.alert( "Failed to delete question!" );
+                    });
     };
 
 

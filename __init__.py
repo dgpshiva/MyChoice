@@ -234,7 +234,42 @@ def castVote():
 
 
 
+# Delete question, its choices and entry from userstatus
+@app.route('/v1/deletequestion/', methods=['POST'])
+def deleteQuestion():
+    if "username" in login_session:
+        try:
+            deleteQuestionJSON = request.get_json(force=True)
+            questionId = deleteQuestionJSON["question_id"]
 
+            questionToDelete = session.query(Questions).filter_by(id = questionId).one()
+            choicesToDelete = session.query(Choices).filter_by(question_id = questionId).all()
+            userstatusesToDelete = session.query(UserStatus).filter_by(question_id = questionId).all()
+
+            if questionToDelete.posted_by == login_session['username']:
+                if request.method == 'POST':
+                    session.delete(questionToDelete)
+
+                    for choice in choicesToDelete:
+                        session.delete(choice)
+
+                    for userStatus in userstatusesToDelete:
+                        session.delete(userStatus)
+
+                    session.commit()
+
+                    return jsonify(status="success")
+            else:
+                return jsonify(status="notAuthorized")
+
+        except Exception, ex:
+            return jsonify(status="fail")
+
+    else:
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+        login_session['state'] = state
+        return render_template('login.html', STATE=state)
 
 # For debugging in VsCode
 # For deployed version comment this out and

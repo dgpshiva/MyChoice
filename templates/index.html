@@ -20,10 +20,10 @@
 
 <ul class="questions-list" data-bind="foreach: questionsList, visible: questionsListPage()">
     <div class="list-element-div">
-        <li class="list-element" data-bind="click: $parent.questionSelected">
-            <p class="question" data-bind="text: question"></p>
+        <li class="list-element">
+            <p class="question" data-bind="text: question, click: $parent.questionSelected"></p>
             <p class="posted-by">Posted By: <span data-bind="text: posted_by"></span></p>
-            <i class="fas fa-trash-alt trash-icon" data-bind="visible: $parent.currentUser() === posted_by"></i>
+            <i class="fas fa-trash-alt trash-icon" data-bind="visible: $parent.currentUser() === posted_by, click: $parent.deleteQuestion"></i>
         </li>
     </div>
     <br>
