@@ -98,6 +98,16 @@ def returnQuestions():
         return render_template('login.html', STATE=state)
 
 
+@app.route('/v1/getcurrentuser')
+def returnCurrentUser():
+    if "username" in login_session:
+        return jsonify(username=login_session['username'])
+    else:
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+        login_session['state'] = state
+        return render_template('login.html', STATE=state)
+
 
 # Post question and choices to db
 @app.route('/v1/postquestion/', methods=['POST'])

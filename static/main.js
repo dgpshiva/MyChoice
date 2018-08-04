@@ -47,6 +47,10 @@ var ViewModel = function() {
     // This is data bound to the choices being displayed on the question details page
     self.choicesList = ko.observableArray([]);
 
+    // This will hold the current logged in user
+    // Will be used to determine if the delete question option is to be shown
+    self.currentUser = ko.observable();
+
     // Test data
     // self.questionsList = ko.observableArray([{"id": 1, "posted_by": "Me","question": "Testssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssaaaaa"},
     //                                          {"id": 2, "posted_by": "MeAgain!","question": "Test"},
@@ -80,6 +84,25 @@ var ViewModel = function() {
             })
             .fail(function( jqxhr, textStatus, error ) {
                 clearTimeout(requestTimeOut);
+                window.alert("Failed to get response from API!");
+            });
+
+
+        // Get the current user
+        var getCurrentUserEndPoint = "http://localhost:5000/v1/getcurrentuser";
+
+        var requestTimeOutGetCurrentUser = setTimeout(function(){
+            window.alert("Failed to get response from API!");
+        }, 20000);
+
+        // Making AJAX request to questions end point
+        $.getJSON( getCurrentUserEndPoint )
+            .done(function( questionsResponseJSON ) {
+                clearTimeout(requestTimeOutGetCurrentUser);
+                self.currentUser(questionsResponseJSON.username);
+            })
+            .fail(function( jqxhr, textStatus, error ) {
+                clearTimeout(requestTimeOutGetCurrentUser);
                 window.alert("Failed to get response from API!");
             });
     };

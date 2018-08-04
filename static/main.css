@@ -194,9 +194,13 @@ body {
     transform: translateY(3px);
 }
 
+.list-element {
+    position: relative;
+}
+
 .question {
     font-size: 20px;
-    margin: 10px 20px;
+    margin: 10px 50px 10px 20px;
     word-wrap: break-word;
     height: 50px;
     overflow: auto;
@@ -205,7 +209,7 @@ body {
 .posted-by {
     font-size: 15px;
     font-style: italic;
-    margin: 15px 20px 0px 20px;
+    margin: 15px 50px 0px 20px;
     word-wrap: break-word;
     height: 30px;
     overflow: auto;
@@ -213,6 +217,14 @@ body {
 
 .posted-by span {
     font-style: initial;
+}
+
+.trash-icon {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    font-size: 25px;
+    color: rgba(172, 0, 0, 0.75);
 }
 
 

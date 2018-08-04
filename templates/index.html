@@ -23,6 +23,7 @@
         <li class="list-element" data-bind="click: $parent.questionSelected">
             <p class="question" data-bind="text: question"></p>
             <p class="posted-by">Posted By: <span data-bind="text: posted_by"></span></p>
+            <i class="fas fa-trash-alt trash-icon" data-bind="visible: $parent.currentUser() === posted_by"></i>
         </li>
     </div>
     <br>
