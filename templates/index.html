@@ -4,12 +4,12 @@
 <header>
     <div class="main-header">
         <p>My Choice!</p>
-        <div class="header-buttons">
+        <div id="header-buttons">
             <div class="post-question-button-div" data-bind="visible: !postQuestionPage()">
-                <button class="standard-button blue-button header-button" data-bind="click: postQuestion">Post <br> Question</button>
+                <button id="post-question-button" class="standard-button blue-button header-button" data-bind="click: postQuestion">Post <br> Question</button>
             </div>
             <div class="logout-button-div">
-                <button class="standard-button red-button header-button" data-bind="click: logout">Logout</button>
+                <button id="logout-button" class="standard-button red-button header-button" data-bind="click: logout">Logout</button>
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
             <li data-bind="visible: choice, text: choice, css:$parent.choiceClassName($index()), click: $parent.castVote"></li>
         </ul>
         <!-- ko foreach: choicesList -->
-            <figure data-bind="attr: {id: $parent.ballIdName($index())} ,visible: choice, css:$parent.ballClassName($index())" class="bubble">
+            <figure data-bind="attr: {id: $parent.ballIdName($index())}, visible: choice" class="bubble">
                 <p data-bind="text: votes"></p>
             </figure>
         <!-- /ko -->

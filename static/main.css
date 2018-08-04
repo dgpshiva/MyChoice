@@ -99,6 +99,23 @@ body {
     font-size: 35px;
 }
 
+#header-buttons {
+    position: absolute;
+    right: 25px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.header-button {
+    height: 60px;
+    width: 150px;
+    text-align: center;
+}
+
+.post-question-button-div {
+    margin: 0 10px;
+}
+
 .sub-header {
     height: 40px;
     background: rgb(92, 92, 92);
@@ -117,23 +134,6 @@ body {
     color: white;
     font-size: 25px;
     font-style: italic;
-}
-
-.header-buttons {
-    position: absolute;
-    right: 25px;
-    display: flex;
-    flex-flow: row wrap;
-}
-
-.header-button {
-    height: 60px;
-    width: 150px;
-    text-align: center;
-}
-
-.post-question-button-div {
-    margin: 0 10px;
 }
 
 
@@ -384,7 +384,7 @@ figure p {
     transform: translateY(3px);
 }
 
-.ball1 {
+#ball1Id {
     position: absolute;
     top: 0px;
     right: 450px;
@@ -399,7 +399,7 @@ figure p {
     background: radial-gradient(circle at 100px 100px, rgba(0, 123, 255, 0.35), rgba(0, 123, 255, 0.95));
 }
 
-.ball2 {
+#ball2Id {
     position: absolute;
     top: 0px;
     right: 200px;
@@ -414,7 +414,7 @@ figure p {
     background: radial-gradient(circle at 100px 100px, rgba(255, 0, 0, 0.35), rgba(255, 0, 0, 0.95));
 }
 
-.ball3 {
+#ball3Id {
     position: absolute;
     top: 210px;
     right: 450px;
@@ -429,7 +429,7 @@ figure p {
     background: radial-gradient(circle at 100px 100px, rgba(0, 112, 15, 0.35), rgba(0, 112, 15, 0.95));
 }
 
-.ball4 {
+#ball4Id {
     position: absolute;
     top: 210px;
     right: 200px;

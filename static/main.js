@@ -25,6 +25,13 @@ var Choice = function(data) {
 var ViewModel = function() {
     var self = this;
 
+    // If iPad
+    if (window.innerWidth > 400 && window.innerWidth < 800) {
+        document.getElementById("header-buttons").style.right = "10px";
+        document.getElementById("post-question-button").style.width = "130px";
+        document.getElementById("logout-button").style.width =  "130px";
+    }
+
     // This is bound to visible property for post question page elements
     self.questionsListPage = ko.observable(true);
     self.postQuestionPage = ko.observable(false);
@@ -213,6 +220,14 @@ var ViewModel = function() {
                         document.getElementById("ball"+(index+1)+"Id").style.width = size + "px";
                     });
 
+                    // If iPad
+                    if (window.innerWidth > 400 && window.innerWidth < 800) {
+                        document.getElementById("ball1Id").style.right =  "250px";
+                        document.getElementById("ball2Id").style.right =  "50px";
+                        document.getElementById("ball3Id").style.right =  "250px";
+                        document.getElementById("ball4Id").style.right =  "50px";
+                    }
+
                 }
             })
             .fail(function( jqxhr, textStatus, error ) {
@@ -246,10 +261,6 @@ var ViewModel = function() {
 
     self.choiceClassName = function(index) {
         return 'choice'+(index+1)+'-style';
-    };
-
-    self.ballClassName = function(index) {
-        return 'ball'+(index+1);
     };
 
     self.ballIdName = function(index) {
