@@ -1,17 +1,24 @@
 {% extends "main.html" %}
 {% block content %}
 
-<header class="main-header">
-    <p>My Choice!</p>
+<header id="main-header">
+    <p id="main-header-text">My Choice!</p>
 </header>
 
-<div class="login-page-div">
+<div id="login-page-div">
     <h2>Welcome</h2>
     <input id="username" type="text" placeholder="Enter your name here" onfocus="this.placeholder = ''">
     <button class="standard-button blue-button" onclick="login()">Go &nbsp >>></button>
 </div>
 
 <script>
+
+    // If mobile device
+    if (window.innerWidth < 400) {
+        document.getElementById("login-page-div").style.marginTop = "50px";
+        document.getElementById("username").style.width = "250px";
+    }
+
     function login() {
 
         var username =  document.getElementById("username").value;

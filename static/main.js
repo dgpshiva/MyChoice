@@ -25,6 +25,31 @@ var Choice = function(data) {
 var ViewModel = function() {
     var self = this;
 
+    // If mobile device
+    if (window.innerWidth < 400) {
+        document.getElementById("main-header").style.height = "150px"
+        document.getElementById("main-header-text").style.margin = "0px"
+        document.getElementById("header-buttons").style.position = "relative";
+        document.getElementById("header-buttons").style.right = "0px";
+        document.getElementById("header-buttons").style.flexFlow = "column wrap";
+        document.getElementById("header-buttons").style.alignItems = "center";
+        document.getElementById("header-buttons").style.justifyContent = "center";
+
+        document.getElementById("post-question-button").innerText = "Post Question";
+        document.getElementById("post-question-button").style.height = "35px";
+        document.getElementById("post-question-button").style.width = "200px";
+        document.getElementById("post-question-button").style.marginBottom = "10px";
+
+        document.getElementById("logout-button").style.height =  "35px";
+        document.getElementById("logout-button").style.width =  "200px";
+
+        document.getElementById("choices-div").style.width =  "85%";
+
+        document.getElementById("post-question-page-buttons-div").style.margin =  "75px 5px";
+        document.getElementById("submit-button").style.marginRight =  "10px";
+        document.getElementById("cancel-button").style.marginLeft =  "10px";
+    }
+
     // If iPad
     if (window.innerWidth > 400 && window.innerWidth < 800) {
         document.getElementById("header-buttons").style.right = "10px";
@@ -220,6 +245,39 @@ var ViewModel = function() {
                         document.getElementById("ball"+(index+1)+"Id").style.width = size + "px";
                     });
 
+                    // If mobile device
+                    if (window.innerWidth < 400) {
+                        document.getElementById("choices-and-balls").style.display =  "flex";
+                        document.getElementById("choices-and-balls").style.flexFlow =  "column wrap";
+                        document.getElementById("choices-and-balls").style.alignItems =  "center";
+                        document.getElementById("choices-and-balls").style.justifyContent =  "center";
+
+                        document.getElementById("choice1Id").style.width =  "250px";
+                        document.getElementById("choice2Id").style.width =  "250px";
+                        document.getElementById("choice3Id").style.width =  "250px";
+                        document.getElementById("choice4Id").style.width =  "250px";
+                        document.getElementById("choice4Id").style.marginBottom =  "30px";
+
+                        document.getElementById("ball1Id").style.position =  "relative";
+                        document.getElementById("ball2Id").style.position =  "relative";
+                        document.getElementById("ball3Id").style.position =  "relative";
+                        document.getElementById("ball4Id").style.position =  "relative";
+
+                        document.getElementById("ball1Id").style.right =  "0px";
+                        document.getElementById("ball2Id").style.right =  "0px";
+                        document.getElementById("ball3Id").style.right =  "0px";
+                        document.getElementById("ball4Id").style.right =  "0px";
+
+                        document.getElementById("ball3Id").style.top =  "0px";
+                        document.getElementById("ball4Id").style.top =  "0px";
+
+                        document.getElementById("ball1Id").style.marginBottom =  "8px";
+                        document.getElementById("ball2Id").style.marginBottom =  "8px";
+                        document.getElementById("ball3Id").style.marginBottom =  "8px";
+
+                        document.getElementById("question-details-page-buttons-div").style.marginTop =  "25px";
+                    }
+
                     // If iPad
                     if (window.innerWidth > 400 && window.innerWidth < 800) {
                         document.getElementById("ball1Id").style.right =  "250px";
@@ -257,6 +315,10 @@ var ViewModel = function() {
         self.questionDetailsPage(false);
         self.postQuestionPage(false);
         self.questionsListPage(true);
+    };
+
+    self.choiceIdName = function(index) {
+        return 'choice'+(index+1)+'Id';
     };
 
     self.choiceClassName = function(index) {

@@ -85,7 +85,7 @@ body {
 
 
 /* Header */
-.main-header {
+#main-header {
     height: 100px;
     background: rgb(49, 49, 49);
     display: flex;
@@ -94,7 +94,7 @@ body {
     flex-flow: row wrap;
 }
 
-.main-header p {
+#main-header p {
     color: white;
     font-size: 35px;
 }
@@ -139,7 +139,7 @@ body {
 
 
 /* Login In Page */
-.login-page-div {
+#login-page-div {
     margin-top: 150px;
     display: flex;
     flex-flow: column wrap;
@@ -147,14 +147,14 @@ body {
     justify-content: center;
 }
 
-.login-page-div h2 {
+#login-page-div h2 {
     font-family: Georgia;
     font-style: italic;
     font-size: 35px;
     margin: 40px 0;
 }
 
-.login-page-div input {
+#login-page-div input {
     height: 30px;
     width: 350px;
     font-size: 18px;
@@ -163,7 +163,7 @@ body {
     border-radius: 15px;
 }
 
-.login-page-div input::placeholder {
+#login-page-div input::placeholder {
     text-align: center;
     font-style: italic;
  }
@@ -243,7 +243,7 @@ body {
     overflow: hidden;
 }
 
-.choices-and-balls {
+#choices-and-balls {
     position: relative;
 }
 
@@ -261,7 +261,7 @@ body {
     border-radius: 15px;
 }
 
-.question-details-page-buttons-div {
+#question-details-page-buttons-div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -287,13 +287,13 @@ body {
     font-size: 25px;
 }
 
-.choices-div {
+#choices-div {
     margin: 60px 25px;
     display: block;
     width: 45%;
 }
 
-.choices-div input {
+#choices-div input {
     display: block;
     margin: 50px 0;
     width: 100%;
@@ -303,7 +303,7 @@ body {
     font-size: 18px;
 }
 
-.post-question-page-buttons-div {
+#post-question-page-buttons-div {
     margin: 75px 25px;
     width: 100%;
     display: flex;
@@ -311,11 +311,11 @@ body {
     justify-content: center;
 }
 
-.submit-button {
+#submit-button {
     margin-right: 50px;
 }
 
-.cancel-button {
+#cancel-button {
     margin-left: 50px;
 }
 
