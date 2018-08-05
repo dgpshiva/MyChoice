@@ -284,9 +284,9 @@ def deleteQuestion():
 # For debugging in VsCode
 # For deployed version comment this out and
 # set the secret key inside __name__ == '__main__'
-app.secret_key = 'super_secret_key'
+#app.secret_key = 'super_secret_key'
 
 if __name__ == '__main__':
-    # app.secret_key = 'super_secret_key'
+    app.secret_key = 'super_secret_key'
     app.debug = True
     app.run()
