@@ -1,2 +1,2 @@
-# PollTagCloud
-Website to take a poll and display results as a tag cloud
+# MyChoice
+Website to take a poll and display results as animated bubbles
