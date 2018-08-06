@@ -1,6 +1,7 @@
 from database_setup import Base, Questions, Choices, UserStatus
 
 import datetime
+import os
 from flask import Flask, render_template, request
 from flask import redirect, jsonify, url_for
 from flask import abort, make_response, g
@@ -293,4 +294,5 @@ if __name__ == '__main__':
     server_address = ('', port)
     app.secret_key = 'super_secret_key'
     app.debug = True
-    app.run()
+    #app.run()
+    app.run(host='0.0.0.0', port=port)
