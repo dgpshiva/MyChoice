@@ -67,7 +67,8 @@ class UserStatus(Base):
         }
 
 
-engine = create_engine('postgresql+psycopg2://mychoice:mychoice@localhost/mychoice')
+# engine = create_engine('postgresql+psycopg2://mychoice:mychoice@localhost/mychoice')
+engine = create_engine('postgresql+psycopg2://pppzozlnwkfumu:e0f51667bf30e620aa53084006490587f4923c09c428b95d10b171d8e0322e08@ec2-23-23-216-40.compute-1.amazonaws.com/dduk2hhougkd0i')
 
 
 Base.metadata.create_all(engine)
