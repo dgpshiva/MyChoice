@@ -7,7 +7,6 @@ Flask-HTTPAuth==3.2.3
 Jinja2==2.10
 psycopg2==2.7.4
 pyOpenSSL==17.5.0
-pyodbc==4.0.22
 pyparsing==2.2.0
 requests==2.18.4
 rsa==3.4.2
