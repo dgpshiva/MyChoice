@@ -7,6 +7,7 @@ from flask import abort, make_response, g
 from flask import session as login_session
 from flask_cors import CORS
 import json
+import ldap
 import random
 import requests
 from sqlalchemy import create_engine, asc, desc
@@ -60,9 +61,30 @@ def login():
             response.headers['Content-Type'] = 'application/json'
             return response
 
+        username = loginInfo['username']
+        password = loginInfo['password']
 
         # To do: Implement authentication of the user
+        Server = "ldap://<ldap server>"
 
+        fullUsername = "DIR\\" + username
+
+        Base = "dc=DIR,dc=co,dc=com"
+        Scope = ldap.SCOPE_SUBTREE
+        Filter = "(&(objectClass=user)(sAMAccountName="+username+"))"
+        Attrs = ["displayName"]
+
+        l = ldap.initialize(Server)
+        l.protocol_version = 3
+        l.set_option(ldap.OPT_REFERRALS, 0)
+        l.simple_bind_s(fullUsername, password)
+
+        r = l.search(Base, Scope, Filter, Attrs)
+        Type, user = l.result(r, 60)
+        Name, Attrs = user[0]
+
+        if hasattr(Attrs, 'has_key') and Attrs.has_key('displayName'):
+            displayName = Attrs['displayName'][0]
 
 
         # Set the username for this session

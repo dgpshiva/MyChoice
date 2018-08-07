@@ -7,7 +7,8 @@
 
 <div id="login-page-div">
     <h2>Welcome</h2>
-    <input id="username" type="text" placeholder="Enter your name here" onfocus="this.placeholder = ''">
+    <input id="username" type="text" placeholder="Enter your ldap alias here (without DIR)" onfocus="this.placeholder = ''">
+    <input id="password" type="password" placeholder="Enter your ldap password here" onfocus="this.placeholder = ''">
     <button class="standard-button blue-button" onclick="login()">Go &nbsp >>></button>
 </div>
 
@@ -17,13 +18,16 @@
     if (window.innerWidth < 400) {
         document.getElementById("login-page-div").style.marginTop = "50px";
         document.getElementById("username").style.width = "250px";
+        document.getElementById("password").style.width = "250px";
     }
 
     function login() {
 
         var username =  document.getElementById("username").value;
-        if (!username || username === "") {
-            window.alert("Please enter your name.");
+        var password =  document.getElementById("password").value;
+
+        if (!username || username === "" || !password || password === "") {
+            window.alert("Please enter your ldap alias and password.");
             return;
         }
 
@@ -31,6 +35,7 @@
 
         loginObject = {};
         loginObject["username"] = username;
+        loginObject["password"] = password;
         loginObject["state"] = "{{STATE}}";
 
         var requestTimeOut = setTimeout(function(){
