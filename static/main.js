@@ -100,7 +100,7 @@ var ViewModel = function() {
         // Clearing out any existing questions from the list
         self.questionsList.removeAll();
 
-        var questionsEndPoint = "http://localhost:5000/v1/questions/";
+        var questionsEndPoint = "/v1/questions/";
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to get response from API!");
@@ -121,7 +121,7 @@ var ViewModel = function() {
 
 
         // Get the current user
-        var getCurrentUserEndPoint = "http://localhost:5000/v1/getcurrentuser";
+        var getCurrentUserEndPoint = "/v1/getcurrentuser";
 
         var requestTimeOutGetCurrentUser = setTimeout(function(){
             window.alert("Failed to get response from API!");
@@ -175,7 +175,7 @@ var ViewModel = function() {
         postQuestionObject["choice3"] = self.choice3();
         postQuestionObject["choice4"] = self.choice4();
 
-        var postQuestionEndPoint = "http://localhost:5000/v1/postquestion/";
+        var postQuestionEndPoint = "/v1/postquestion/";
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to contact the API!");
@@ -194,24 +194,22 @@ var ViewModel = function() {
                         else {
                             window.alert("Failed to post question!" );
                         }
-
                     })
                     .fail(function() {
                         clearTimeout(requestTimeOut);
                         window.alert( "Failed to post question!" );
                     });
 
-        self.questionDetailsPage(false);
-        self.postQuestionPage(false);
-        self.questionsListPage(true);
+                    self.questionDetailsPage(false);
+                    self.postQuestionPage(false);
+                    self.questionsListPage(true);
 
-        self.question("");
-        self.choice1("");
-        self.choice2("");
-        self.choice3("");
-        self.choice4("");
+                    self.question("");
+                    self.choice1("");
+                    self.choice2("");
+                    self.choice3("");
+                    self.choice4("");
     };
-
 
 
     self.loadChoicesAndVotes = function(questionId) {
@@ -219,7 +217,7 @@ var ViewModel = function() {
         // Empty any choices votes previously loaded
         self.choicesList.removeAll();
 
-        var getChoicesVotesEndPoint = "http://localhost:5000/v1/questions/" + questionId;
+        var getChoicesVotesEndPoint = "/v1/questions/" + questionId;
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to get response from API!");
@@ -337,7 +335,7 @@ var ViewModel = function() {
         var questionId = choiceJSON["question_id"];
 
         // Check if this user has not already cast a vote and then register his/her vote
-        var getUserStatusEndPoint = "http://localhost:5000/v1/userstatus/" + questionId;
+        var getUserStatusEndPoint = "/v1/userstatus/" + questionId;
 
         var requestTimeOutGetUserStatus = setTimeout(function(){
             window.alert("Failed to get response from API!");
@@ -348,7 +346,7 @@ var ViewModel = function() {
         voteObject["choice_id"] = choiceID;
         voteObject["question_id"] = questionId;
 
-        var castVoteEndPoint = "http://localhost:5000/v1/castvote/";
+        var castVoteEndPoint = "/v1/castvote/";
 
         var requestTimeOutCastVote = setTimeout(function(){
             window.alert("Failed to contact the API!");
@@ -407,7 +405,7 @@ var ViewModel = function() {
         var deleteQuestionObject = {}
         deleteQuestionObject["question_id"] = questionId;
 
-        var deleteQuestionEndPoint = "http://localhost:5000/v1/deletequestion/";
+        var deleteQuestionEndPoint = "/v1/deletequestion/";
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to contact the API!");
@@ -439,7 +437,7 @@ var ViewModel = function() {
 
 
     self.logout = function() {
-        var logoutEndPoint = "http://localhost:5000/v1/logout";
+        var logoutEndPoint = "/v1/logout";
 
         var requestTimeOut = setTimeout(function(){
             window.alert("Failed to contact the API!");
