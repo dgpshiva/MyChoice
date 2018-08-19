@@ -78,8 +78,7 @@ Tech stack used to build this application is as follows:
 - Close the terminal/command prompt window
 
 ## Link to version deployed on Heroku
-- Version without user auth has been deployed to Heroku. It can be accessed at: https://my-choice55.herokuapp.com/v1/indexPage
-
+- Version without user auth has been deployed to Heroku. It can be accessed at: https://my-choice55.herokuapp.com
 ## Extending the application
 - The [release-v1](https://github.com/dgpshiva/MyChoice/releases/tag/v1.0) version of the application can be extended to implement any sort of user authentication
 - The user authentication code logic need to be added to the [__init__.py](./__init__.py) file
