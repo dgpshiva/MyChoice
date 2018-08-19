@@ -198,6 +198,10 @@ body {
     position: relative;
 }
 
+.list-element-text {
+    margin-right: 50px;
+}
+
 .question {
     font-size: 20px;
     margin: 10px 50px 10px 20px;
