@@ -198,6 +198,10 @@ body {
     position: relative;
 }
 
+.list-element-text {
+    margin-right: 50px;
+}
+
 .question {
     font-size: 20px;
     margin: 10px 50px 10px 20px;
@@ -253,7 +257,7 @@ body {
 }
 
 .display-choices li {
-    margin: 50px 0 85px 0;
+    margin: 50px 0 79px 0;
     width: 30%;
     height: 25px;
     padding: 5px 0 0 10px;
